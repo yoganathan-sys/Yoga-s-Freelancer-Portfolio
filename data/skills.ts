@@ -49,3 +49,4 @@ export const skillCategories = [
   "Mobile",
   "Tools",
 ] as const;
+

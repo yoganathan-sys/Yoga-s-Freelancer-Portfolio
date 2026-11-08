@@ -126,39 +126,52 @@ export function HeroSection() {
         </div>
 
         {/* DESKTOP SPLIT: Right Side with Pure Black Background (#000000) & Profile Photograph */}
-        <div className="relative w-full lg:w-[48%] lg:-ml-[6%] bg-[#000000] min-h-[380px] sm:min-h-[460px] lg:min-h-full flex items-center justify-center p-6 sm:p-10 z-0">
-          {/* Subtle Ambient Radial Lighting */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.15)_0,transparent_70%)] pointer-events-none" />
+        <div className="relative w-full lg:w-[48%] lg:-ml-[6%] bg-[#000000] min-h-[420px] sm:min-h-[500px] lg:min-h-full flex items-center justify-center p-4 sm:p-8 lg:p-10 z-0 overflow-hidden">
+          {/* Subtle Ambient Radial Lighting for Depth */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.12)_0,transparent_75%)] pointer-events-none" />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative w-full max-w-md aspect-[4/5] flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.96, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+            className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[460px] aspect-[4/5] flex items-center justify-center"
           >
-            {/* Professional Profile Portrait */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden border border-zinc-800/80 bg-zinc-950 shadow-2xl flex items-center justify-center group">
+            {/* Natural Blend Photo Wrapper (No unnatural heavy borders) */}
+            <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden group">
               <Image
                 src={profileConfig.avatarUrl}
                 alt={`${profileConfig.name} - Professional Full-Stack & Mobile Developer`}
                 fill
                 priority
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 500px"
+                quality={95}
+                className="object-cover object-[center_28%] transition-transform duration-700 group-hover:scale-[1.03]"
+                sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 460px"
               />
 
-              {/* Status Pill on Photograph */}
-              <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-md border border-zinc-700/80 rounded-xl p-3 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
+              {/* Bottom Soft Dissolve Gradient to blend naturally into black canvas */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none"
+                aria-hidden="true"
+              />
+
+              {/* Subtle Vignette for Natural Contrast Integration */}
+              <div
+                className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl sm:rounded-3xl pointer-events-none"
+                aria-hidden="true"
+              />
+
+              {/* Status Pill on Photograph Base */}
+              <div className="absolute bottom-5 left-4 right-4 sm:left-6 sm:right-6 bg-black/85 backdrop-blur-md border border-zinc-700/70 rounded-full px-4 py-2.5 flex items-center justify-between text-xs shadow-2xl">
+                <div className="flex items-center gap-2.5">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                   </span>
-                  <span className="text-zinc-200 font-medium font-sans">
+                  <span className="text-zinc-100 font-medium font-sans text-xs tracking-wide">
                     Available for Contracts
                   </span>
                 </div>
-                <span className="text-zinc-400 font-mono text-[11px]">
+                <span className="text-zinc-400 font-mono text-[11px] hidden sm:inline">
                   Web & Mobile
                 </span>
               </div>
@@ -181,3 +194,4 @@ export function HeroSection() {
     </section>
   );
 }
+

@@ -8,3 +8,4 @@ export default async function AdminMessagesPage() {
 
   return <MessagesManager initialMessages={messages} />;
 }
+

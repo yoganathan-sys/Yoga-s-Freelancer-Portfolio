@@ -163,3 +163,4 @@ CREATE POLICY "Admins can delete project images"
     ON storage.objects FOR DELETE
     TO authenticated
     USING (bucket_id = 'project-images' AND public.is_admin());
+

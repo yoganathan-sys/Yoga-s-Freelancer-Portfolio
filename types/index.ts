@@ -48,3 +48,4 @@ export interface DashboardMetrics {
   totalInquiries: number;
   unreadInquiries: number;
 }
+

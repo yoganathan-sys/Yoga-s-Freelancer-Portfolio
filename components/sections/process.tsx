@@ -106,3 +106,4 @@ export function ProcessSection() {
     </section>
   );
 }
+

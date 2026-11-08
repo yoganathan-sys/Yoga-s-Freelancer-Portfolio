@@ -52,5 +52,5 @@ export const profileConfig: ProfileConfig = {
     email: "mailto:yoganathan.developer@gmail.com",
   },
   resumeUrl: "/assets/Yoganathan_A_Resume.pdf",
-  avatarUrl: "/images/yoganathan-profile.svg",
+  avatarUrl: "/images/profile-photo.png",
 };

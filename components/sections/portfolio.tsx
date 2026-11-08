@@ -103,3 +103,4 @@ export function PortfolioSection({ initialProjects }: PortfolioSectionProps) {
     </section>
   );
 }
+

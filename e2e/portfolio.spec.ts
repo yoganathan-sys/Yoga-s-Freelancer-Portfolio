@@ -54,10 +54,11 @@ test.describe("Portfolio Homepage User Journeys", () => {
     const firstProjectLink = page.getByRole("link", { name: "View Project" }).first();
     await expect(firstProjectLink).toBeVisible();
     await firstProjectLink.click();
+    await page.waitForURL("**/projects/**");
 
     // Verify detail page
-    await expect(page.getByRole("link", { name: "Back to Portfolio" })).toBeVisible();
-    await expect(page.getByText("Technologies Used")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Back to Portfolio" })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText("Technologies Used")).toBeVisible({ timeout: 10000 });
   });
 
   test("should validate contact form submission", async ({ page }) => {

@@ -160,3 +160,4 @@ export function AboutSection() {
     </section>
   );
 }
+

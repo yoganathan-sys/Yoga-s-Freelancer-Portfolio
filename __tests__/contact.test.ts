@@ -52,3 +52,4 @@ describe("Contact Server Action & Validation", () => {
     expect(res.message).toContain("received");
   });
 });
+
