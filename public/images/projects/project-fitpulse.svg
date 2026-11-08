@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="50%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#fp-bg)"/>
+  
+  <g transform="translate(300, 80)">
+    <rect width="320" height="640" rx="42" fill="#09090b" stroke="#f97316" stroke-width="4"/>
+    <rect x="15" y="15" width="290" height="610" rx="34" fill="#18181b"/>
+    <rect x="95" y="24" width="130" height="24" rx="12" fill="#09090b"/>
+
+    <!-- Screen Content -->
+    <text x="35" y="85" fill="#fdba74" font-family="sans-serif" font-size="14">TODAY'S WORKOUT</text>
+    <text x="35" y="115" fill="#ffffff" font-family="sans-serif" font-size="22" font-weight="bold">Push Day A</text>
+
+    <!-- Ring Stats -->
+    <circle cx="160" cy="220" r="70" fill="none" stroke="#27272a" stroke-width="14"/>
+    <circle cx="160" cy="220" r="70" fill="none" stroke="url(#orange-grad)" stroke-width="14" stroke-dasharray="340" stroke-dashoffset="85" stroke-linecap="round"/>
+    <text x="135" y="220" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="26">75%</text>
+    <text x="120" y="240" fill="#a1a1aa" font-family="sans-serif" font-size="12">COMPLETED</text>
+
+    <!-- Routine Card -->
+    <rect x="30" y="320" width="260" height="75" rx="14" fill="#27272a"/>
+    <text x="45" y="350" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="15">Incline Dumbbell Press</text>
+    <text x="45" y="375" fill="#fb923c" font-family="sans-serif" font-size="13">4 sets × 10 reps @ 32kg</text>
+
+    <rect x="30" y="410" width="260" height="75" rx="14" fill="#27272a"/>
+    <text x="45" y="440" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="15">Weighted Dips</text>
+    <text x="45" y="465" fill="#fb923c" font-family="sans-serif" font-size="13">3 sets × 12 reps @ +20kg</text>
+
+    <!-- Rest Timer Button -->
+    <rect x="30" y="520" width="260" height="50" rx="25" fill="url(#orange-grad)"/>
+    <text x="95" y="552" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="15">Rest Timer: 01:30</text>
+  </g>
+
+  <!-- Secondary Phone Mockup -->
+  <g transform="translate(680, 140)">
+    <rect width="300" height="580" rx="40" fill="#09090b" stroke="#52525b" stroke-width="3"/>
+    <rect x="15" y="15" width="270" height="550" rx="32" fill="#18181b"/>
+    <text x="35" y="80" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="18">Nutrition Target</text>
+    <rect x="30" y="110" width="240" height="130" rx="14" fill="#27272a"/>
+    <text x="45" y="145" fill="#fdba74" font-family="sans-serif" font-size="13">Calories Consumed</text>
+    <text x="45" y="185" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="28">2,450 kcal</text>
+    <text x="45" y="215" fill="#22c55e" font-family="sans-serif" font-size="12">Protein Goal Met: 185g</text>
+  </g>
+</svg>

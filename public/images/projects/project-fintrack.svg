@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ft-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="chart-glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#ft-bg)"/>
+  
+  <g transform="translate(100, 80)">
+    <rect width="1000" height="640" rx="16" fill="#141414" stroke="#262626" stroke-width="2"/>
+    <!-- Top metrics -->
+    <g transform="translate(40, 40)">
+      <rect width="280" height="120" rx="12" fill="#1c1c1c" stroke="#2e2e2e" stroke-width="1"/>
+      <text x="24" y="38" fill="#a3a3a3" font-family="sans-serif" font-size="13">TOTAL PORTFOLIO VALUE</text>
+      <text x="24" y="80" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="28">$482,914.50</text>
+      <text x="24" y="105" fill="#22c55e" font-family="sans-serif" font-size="12">▲ +14.8% vs last month</text>
+    </g>
+
+    <g transform="translate(360, 40)">
+      <rect width="280" height="120" rx="12" fill="#1c1c1c" stroke="#2e2e2e" stroke-width="1"/>
+      <text x="24" y="38" fill="#a3a3a3" font-family="sans-serif" font-size="13">ANNUALIZED DIVIDEND</text>
+      <text x="24" y="80" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="28">$21,490.00</text>
+      <text x="24" y="105" fill="#3b82f6" font-family="sans-serif" font-size="12">Yield 4.45% Avg</text>
+    </g>
+
+    <g transform="translate(680, 40)">
+      <rect width="280" height="120" rx="12" fill="#1c1c1c" stroke="#2e2e2e" stroke-width="1"/>
+      <text x="24" y="38" fill="#a3a3a3" font-family="sans-serif" font-size="13">RISK RATIO / BETA</text>
+      <text x="24" y="80" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="28">0.82 Low</text>
+      <text x="24" y="105" fill="#a855f7" font-family="sans-serif" font-size="12">Optimized Sharpe 2.1</text>
+    </g>
+
+    <!-- Main Chart -->
+    <g transform="translate(40, 190)">
+      <rect width="920" height="410" rx="12" fill="#1c1c1c" stroke="#2e2e2e" stroke-width="1"/>
+      <text x="30" y="40" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="16">Cumulative Performance Horizon</text>
+      
+      <!-- Chart Area -->
+      <path d="M 40 330 L 40 260 C 140 240 220 280 320 210 C 420 140 500 180 620 110 C 720 70 820 110 880 50 L 880 330 Z" fill="url(#chart-glow)"/>
+      <path d="M 40 260 C 140 240 220 280 320 210 C 420 140 500 180 620 110 C 720 70 820 110 880 50" fill="none" stroke="#3b82f6" stroke-width="4"/>
+      <circle cx="880" cy="50" r="7" fill="#60a5fa" stroke="#ffffff" stroke-width="3"/>
+
+      <!-- X-axis labels -->
+      <text x="40" y="360" fill="#737373" font-family="sans-serif" font-size="12">Jan</text>
+      <text x="200" y="360" fill="#737373" font-family="sans-serif" font-size="12">Mar</text>
+      <text x="380" y="360" fill="#737373" font-family="sans-serif" font-size="12">May</text>
+      <text x="560" y="360" fill="#737373" font-family="sans-serif" font-size="12">Jul</text>
+      <text x="740" y="360" fill="#737373" font-family="sans-serif" font-size="12">Sep</text>
+      <text x="860" y="360" fill="#737373" font-family="sans-serif" font-size="12">Nov</text>
+    </g>
+  </g>
+</svg>
