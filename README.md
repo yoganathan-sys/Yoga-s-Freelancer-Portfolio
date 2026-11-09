@@ -1,41 +1,59 @@
-# Yoganathan A — Premium Freelancer Portfolio
+# Yoganathan A — Senior Freelancer & Full-Stack Developer Portfolio
 
-A high-end, production-ready developer portfolio website engineered for **Yoganathan A**, showcasing Web Application Development, Mobile Application Development, Full-Stack Development, and Custom Software Solutions.
+[![Next.js 14](https://img.shields.io/badge/Next.js-14.2-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat&logo=supabase)](https://supabase.com/)
+[![Resend](https://img.shields.io/badge/Resend-Email_API-black?style=flat&logo=resend)](https://resend.com/)
+[![Playwright](https://img.shields.io/badge/Playwright-E2E_Testing-2EAD33?style=flat&logo=playwright)](https://playwright.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-Inspired by the visual identity of the Tomasz Gajda portfolio, this project recreation elevates the concept with an original, modern design, interactive 3D WebGL elements, smooth animations, a secure Supabase backend with Row Level Security (RLS), and an administrative control panel.
+A high-performance, responsive developer portfolio engineered for **Yoganathan A**, showcasing Web Application Development, Cross-Platform Mobile Apps, Full-Stack Architecture, and Relational Database Engineering.
+
+Repository: **[https://github.com/yoganathan-sys/Yoga-s-Freelancer-Portfolio.git](https://github.com/yoganathan-sys/Yoga-s-Freelancer-Portfolio.git)**
 
 ---
 
-## 🚀 Key Highlights & Architectural Features
+## 🌟 Key Features & Architectural Highlights
 
 ### 1. Tomasz Gajda-Inspired Hero Section
-- **Split-Screen Canvas:** Framed layout with generous white outer margins.
-- **Color Geometry:** Light grey background (`#D7D7D7`) on the left, pure black background (`#000000`) on the right, seamlessly separated by a diagonal angled polygon divider.
-- **Personal Introduction:** Left-aligned intro ("Hi, I'm", "YOGANATHAN A", "Full-Stack Developer | Web & Mobile App Developer"), tagline, action buttons ("Explore My Work", "Let's Work Together"), and social links.
-- **Profile Presentation:** Professionally framed profile photograph with an active contract status pill.
-- **Responsive Stacking:** Converts cleanly into a stacked layout on tablets and mobile phones with zero horizontal overflow.
-- **Navigation:** Sticky header with branded monogram logo, section highlighting, and white rounded `CONTACT ME` button.
+- **Split-Screen Geometry:** Framed canvas layout with generous outer white margins.
+- **Asymmetric Color Division:** Light grey background (`#D7D7D7`) on the left, pure black background (`#000000`) on the right, seamlessly divided by a high-precision diagonal polygon.
+- **Authentic Profile Photograph:** Real profile photograph placed cleanly within the black canvas with an active contract status pill: *"Available for Contracts • Web & Mobile"*.
+- **Quick Actions & Socials:** Direct call-to-actions (*"Explore My Work"*, *"Let's Work Together"*), alongside verified links for GitHub, LinkedIn, YouTube, and direct WhatsApp chat.
 
-### 2. Comprehensive Website Sections
-- **About Me:** Bio highlighting development interests, approach to business problem-solving, reliable application goals, Download Resume button, and an interactive 3D WebGL element.
-- **Services:** 6 cards with Lucide icons, service checklists, and hover effects:
-  1. Web Development
-  2. Mobile App Development
-  3. Full-Stack Development
-  4. UI/UX Development
-  5. Database Development
-  6. Deployment & Maintenance
-- **Skills & Technologies:** Organized into Frontend, Backend, Database, Mobile, and Tools with interactive category filtering.
-- **Portfolio Showcase:** Case study cards with category filters (All, Web Applications, Mobile Applications, Full-Stack Projects, UI/UX Designs), technology pills, and direct links to live demos, GitHub repositories, and dedicated slug detail pages (`/projects/[slug]`).
-- **Structured Work Process:** Modern 6-step lifecycle timeline (`01 Discover`, `02 Plan & Design`, `03 Develop`, `04 Test`, `05 Deploy`, `06 Maintain`).
-- **Contact Section:** "Have a Project in Mind?", React Hook Form + Zod validation, honeypot anti-spam protection, Supabase storage, and Resend email dispatch.
-- **Footer:** Brand logo, navigation links, social networks, dynamic copyright year, and a smooth back-to-top button.
+### 2. Verified Real Client Projects
+Showcases genuine, deployed client web development projects with authentic media, screenshots, and live domain links:
+1. **RO Water Website** — Commercial and domestic RO water purifier sales, online service booking, and catalog platform.
+   - **Live Website:** [https://ro-water-rouge.vercel.app/](https://ro-water-rouge.vercel.app/)
+   - **Stack:** Next.js, React, TypeScript, Tailwind CSS, Responsive Web Design
+2. **Medical Shop Website** — Complete digital pharmacy platform featuring prescription inquiries, medicine catalog, PWA installability, and pharmacist consultation.
+   - **Live Website:** [https://medical-project-wine-one.vercel.app/](https://medical-project-wine-one.vercel.app/)
+   - **Stack:** Next.js, React, Tailwind CSS, PWA, Vercel
 
-### 3. Dedicated Admin Dashboard (`/admin`)
-- Accessible via `/admin` with Supabase Auth integration.
-- Real-time telemetry metrics: Total Projects, Published Projects, Total Inquiries, Unread Inquiries.
-- Full CRUD project management: Create, update, toggle publish/draft, and delete with confirmation.
-- Inquiries manager: Filter incoming client leads by status (`unread`, `read`, `replied`, `archived`) and reply directly via email.
+### 3. Dedicated YouTube Content Creator Section
+- Highlights **Yoga's Study Zone** (`@yogasstudyzone`), Yoganathan's educational technology channel.
+- Direct links to subscribe, visit the channel, and view programming walkthroughs and web development tutorials.
+- Channel URL: [https://www.youtube.com/@yogasstudyzone](https://www.youtube.com/@yogasstudyzone)
+
+### 4. Professional Resume Integration
+- **Direct PDF Download:** High-visibility *"Download Resume"* action downloading [`public/resume.pdf`](./public/resume.pdf).
+- **Dedicated Web Resume Route:** Accessible at `/resume` with embedded PDF viewer, print styling, and section-by-section breakdown.
+
+### 5. Multi-Channel Contact & WhatsApp Workflow
+- **Interactive Location Card:** Detects visitor geolocation via the browser Geolocation API and opens precise Google Maps coordinates, with fallback to [Google Maps Location](https://maps.app.goo.gl/tpTi2YUs5Q9t15F67).
+- **Contact Form:** Full Name, Email Address, optional Customer Phone / WhatsApp Number, Project Type, Budget Range, and Project Description.
+- **WhatsApp Click-to-Chat Integration:** Upon successful form submission, generates a prefilled WhatsApp message to `+91 90252 81363` (`https://wa.me/919025281363?text=...`) for immediate discussion.
+- **Automatic Email Notifications:** Dispatches complete project enquiries to `yoganathan162008@gmail.com` via the Resend API with admin delivery tracking.
+- **Database Persistence:** Inquiries are stored in Supabase PostgreSQL with anti-spam honeypot defense.
+
+### 6. Interactive 3D WebGL Canvas
+- Embedded Three.js / React Three Fiber interactive 3D model in the About section with smooth orbit controls and hover physics.
+
+### 7. Administrative Control Center (`/admin`)
+- Secure admin dashboard protected by Supabase Auth.
+- Real-time inquiry manager with status filters (`unread`, `read`, `replied`, `archived`) and one-click email retry pipelines.
+- Project CRUD manager for publishing, updating, and managing case studies.
 
 ---
 
@@ -44,73 +62,77 @@ Inspired by the visual identity of the Tomasz Gajda portfolio, this project recr
 | Layer | Technologies |
 |---|---|
 | **Framework** | Next.js 14 (App Router, Server Actions, Route Handlers) |
-| **Language** | TypeScript (Strict Mode) |
-| **Styling** | Tailwind CSS, Radix UI Primitives, Lucide React Icons |
-| **Motion & 3D** | Framer Motion, Three.js (WebGL Canvas) |
-| **Backend & DB** | Supabase PostgreSQL, Supabase Auth, Row Level Security (RLS) |
-| **Email Service** | Resend API |
-| **Forms & Validation** | React Hook Form, Zod |
-| **Testing** | Vitest (Unit & Component), Playwright (End-to-End) |
-| **Deployment** | Vercel (Edge Network) & Supabase |
+| **Language** | TypeScript 5 (Strict Mode) |
+| **Styling** | Tailwind CSS 3, Radix UI Primitives, Lucide Icons |
+| **Animations & 3D** | Framer Motion, Three.js, React Three Fiber, Drei |
+| **Database & Auth** | Supabase PostgreSQL, Supabase Auth, Row Level Security (RLS) |
+| **Email API** | Resend API |
+| **Form Handling** | React Hook Form, Zod Validation |
+| **Testing** | Vitest (Unit / Component), Playwright (E2E) |
+| **Hosting & CDN** | Vercel (Edge Network) |
 
 ---
 
-## 📁 Directory Structure
+## 📁 Repository Structure
 
 ```text
-├── actions/                  # Next.js Server Actions (Contact dispatch, Admin CRUD)
-├── app/                      # Next.js App Router routes & layouts
-│   ├── admin/                # Admin Console (Overview, Projects, Messages, Login)
-│   ├── projects/[slug]/      # Dynamic case study detail pages (SSG/ISR)
-│   ├── robots.txt/           # Search engine crawler directive endpoint
-│   ├── sitemap.xml/          # Dynamic XML sitemap endpoint
-│   ├── error.tsx             # Global application error boundary
-│   ├── globals.css           # Tailwind CSS directives & color variables
-│   ├── layout.tsx            # Root layout with fonts, SEO & desktop cursor
-│   ├── loading.tsx           # Suspense loading state
-│   ├── not-found.tsx         # 404 page
-│   └── page.tsx              # Homepage assembling all portfolio sections
+├── actions/                  # Next.js Server Actions (Contact form dispatch, Admin CRUD)
+├── app/                      # App Router pages and API routes
+│   ├── admin/                # Admin Console (Overview, Projects, Inquiries, Login)
+│   ├── api/contact/          # RESTful endpoint for inquiry submissions
+│   ├── projects/[slug]/      # Dynamic case study detail pages with lightbox & video
+│   ├── resume/               # Dedicated web resume page with embedded PDF viewer
+│   ├── layout.tsx            # Root layout with fonts, metadata & smooth scroll
+│   ├── page.tsx              # Homepage assembling all portfolio sections
+│   ├── robots.txt            # Search engine crawler directive endpoint
+│   └── sitemap.xml           # Dynamic XML sitemap
 ├── components/
-│   ├── 3d/                   # Three.js interactive 3D WebGL canvas
-│   ├── admin/                # Admin dashboard management components
-│   ├── layout/               # Sticky Navbar, Footer
-│   ├── projects/             # Project cards & detail views
-│   ├── sections/             # Hero, About, Services, Skills, Process, Contact
-│   └── ui/                   # Reusable UI primitives (Button, Input, Textarea, Badge, Cursor)
-├── data/                     # Central configuration files (Profile, Services, Skills, Process)
-├── e2e/                      # Playwright end-to-end test scenarios
-├── lib/                      # Supabase clients (Client, Server, Admin), utility helpers
-├── public/                   # Static assets (SVGs, Resume PDF, Project imagery)
+│   ├── 3d/                   # Three.js 3D canvas components
+│   ├── admin/                # Admin management UI & inquiries table
+│   ├── contact/              # Interactive Geolocation Location Card
+│   ├── layout/               # Sticky Navbar, Gajda-inspired theme header, Footer
+│   ├── projects/             # Project cards, filter tabs, lightbox & video player
+│   ├── sections/             # Hero, About, Services, Skills, Process, YouTube, Contact
+│   └── ui/                   # Reusable UI primitives (Buttons, Inputs, Textareas, WhatsApp icon)
+├── data/                     # Central data configurations (Profile, Projects, Services, Skills)
+├── e2e/                      # Playwright end-to-end test suites
+├── lib/                      # Supabase clients, Resend email service, WhatsApp url generator
+├── public/                   # Static assets (Resume PDF, project images, profile photo)
 ├── supabase/
-│   ├── migrations/           # 01_init.sql (Postgres schema, tables, RLS policies, buckets)
-│   └── seed.sql              # Initial production project records
-└── __tests__/                # Vitest unit test suites
+│   ├── migrations/           # SQL migration files (01_init, 02_email_status, 03_add_phone)
+│   └── seed.sql              # Initial project and schema data
+├── __tests__/                # Vitest unit test suites
+├── .env.example              # Environment variables template
+├── .gitignore                # Comprehensive Git ignore rules
+├── LICENSE                   # MIT License
+├── package.json              # Project dependencies and npm scripts
+└── playwright.config.ts      # Playwright test configuration
 ```
 
 ---
 
-## ⚙️ Environment Variables Setup
+## ⚙️ Environment Variables
 
-Create a `.env.local` file in the root directory:
+Copy `.env.example` to create your local `.env.local`:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Populate the variables with your actual credentials:
+Configure the following variables:
 
 ```env
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL="https://your-project-ref.supabase.co"
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="your-anon-publishable-key"
 
-# Supabase Server-Only Service Role Key (Used for secure server actions)
+# Supabase Server Service Role Key (Used for secure server actions)
 SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"
 
-# Resend API Key (for client inquiry email delivery)
+# Resend API Key (for email notifications)
 RESEND_API_KEY="re_your_api_key_here"
 
-# Destination email where inquiries are sent
+# Destination notification email
 CONTACT_NOTIFICATION_EMAIL="yoganathan162008@gmail.com"
 
 # Authorized Administrator Email
@@ -120,62 +142,46 @@ ADMIN_EMAIL="yoganathan162008@gmail.com"
 NEXT_PUBLIC_SITE_URL="https://yoganathan.dev"
 ```
 
-> **Note on Local Development:** The application includes graceful fallbacks. If Supabase is not yet configured, the portfolio automatically operates using the local fallback store in `data/projects.ts` and in-memory inquiries, enabling seamless development without database lock-in.
+> **Note:** If Supabase is not configured locally, the application automatically runs in graceful in-memory fallback mode using `data/projects.ts`, ensuring zero development blockers.
 
 ---
 
-## 🗄️ Database Setup & Migrations (Supabase)
+## 🗄️ Database Setup (Supabase)
 
-1. **Create a Supabase Project:**
-   Log in to [Supabase](https://supabase.com) and create a new project.
-
-2. **Execute Migrations:**
-   In your Supabase Dashboard, open the **SQL Editor** and paste the contents of:
-   `supabase/migrations/01_init.sql`
-   Click **Run**. This establishes:
-   - `projects` table with search and category indexes
-   - `contact_messages` table with inquiry statuses
-   - `admin_users` table linking to Supabase Auth
-   - Row Level Security (RLS) policies allowing public read access to published projects while securing private inquiries and drafts to admins only.
-   - `project-images` Supabase Storage bucket with public read policies.
-
-3. **Seed Initial Case Studies:**
-   In the **SQL Editor**, run:
-   `supabase/seed.sql`
-
-4. **Grant Administrator Access:**
-   In Supabase Dashboard -> **Authentication** -> **Users**, create your admin user (or sign up via Supabase Auth). Then run this SQL query replacing with your user's UUID:
-   ```sql
-   INSERT INTO public.admin_users (user_id)
-   VALUES ('your-user-uuid-here');
-   ```
+1. Create a project at [Supabase](https://supabase.com).
+2. Open the **SQL Editor** and run the migrations in order:
+   - `supabase/migrations/01_init.sql` (Tables, indexes, and RLS policies)
+   - `supabase/migrations/02_add_email_status.sql` (Email delivery audit status)
+   - `supabase/migrations/03_add_phone_column.sql` (Customer phone column)
+3. *(Optional)* Seed initial client projects:
+   - Run `supabase/seed.sql`
 
 ---
 
-## 🏃 Local Development & Build Commands
+## 🏃 Getting Started Locally
 
 ### 1. Install Dependencies
 ```bash
 npm install
 ```
 
-### 2. Run Development Server
+### 2. Start Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
-### 3. Run Unit Tests (Vitest)
+### 3. Run Unit Tests
 ```bash
 npm test
 ```
 
-### 4. Run End-to-End Tests (Playwright)
+### 4. Run End-to-End Tests
 ```bash
 npm run test:e2e
 ```
 
-### 5. Build for Production
+### 5. Production Build
 ```bash
 npm run build
 npm run start
@@ -183,22 +189,20 @@ npm run start
 
 ---
 
-## 🌐 Deployment to Vercel
+## 🚀 Deployment to Vercel
 
-1. Push your repository to **GitHub**:
+1. Push your repository to GitHub:
    ```bash
-   git init
-   git add .
-   git commit -m "feat: complete Yoganathan A portfolio website"
-   git remote add origin https://github.com/your-username/yoganathan-portfolio.git
-   git push -u origin main
+   git push origin main
    ```
-2. Import the repository into [Vercel](https://vercel.com).
-3. Under **Environment Variables**, add the environment variables defined in `.env.example`.
-4. Click **Deploy**. Vercel will build and deploy the Next.js application with automatic ISR caching and Edge optimization.
+2. Import the repository in [Vercel](https://vercel.com).
+3. Configure the Environment Variables matching `.env.example`.
+4. Click **Deploy**.
 
 ---
 
 ## 📄 License
-MIT License. Created for **Yoganathan A**.
 
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+
+Developed with pride by **Yoganathan A** ([@yoganathan-sys](https://github.com/yoganathan-sys)).

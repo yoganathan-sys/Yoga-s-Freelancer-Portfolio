@@ -4,36 +4,63 @@
 .pnp.js
 .yarn/cache
 
-# Next.js build
+# Next.js build & cache
 /.next/
 /out/
 *.tsbuildinfo
+.turbo
 
-# Production
+# Production build artifacts
 /build
+/dist
 
-# Debug logs
+# Debug & Execution logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 .pnpm-debug.log*
 
-# Environment variables
-.env*.local
+# Environment & Secret files (Never commit credentials)
 .env
+.env*.local
+.env.production
+.env.staging
 
-# Playwright & Vitest
+# Playwright, Vitest & Testing coverage
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/coverage/
 
-# OS files
+# Operating System temporary & index files
 .DS_Store
-*.pem
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
 Thumbs.db
+[Dd]esktop.ini
+*.pem
+
+# IDE & Editor configurations
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Vercel deployment cache
+.vercel
 
 # Local raw media backup source
 images/
-
-
