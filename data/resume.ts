@@ -92,7 +92,7 @@ export const resumeData: ResumeData = {
         "Utilized Bootstrap grid components and custom CSS transitions to ensure fluid UX across phone, tablet, and desktop.",
         "Structured intuitive product filtering and category navigation using modular vanilla JavaScript DOM scripts.",
       ],
-      liveUrl: "https://sri-siva-medicals.vercel.app",
+      liveUrl: "https://medical-project-wine-one.vercel.app/",
       githubUrl: "https://github.com/yoganathan-sys",
     },
     {
@@ -124,3 +124,4 @@ export const resumeData: ResumeData = {
   },
   pdfUrl: "/resume.pdf",
 };
+

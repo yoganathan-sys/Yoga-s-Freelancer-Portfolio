@@ -97,13 +97,21 @@ describe("Projects Data", () => {
       expect(proj.gallery?.length).toBeGreaterThanOrEqual(7);
     });
 
-    // Verify client 1 has R-Tech Pure Water details
-    expect(initialProjects[0].slug).toBe("r-tech-pure-water");
+    // Verify client 1 has RO Water Website details
+    expect(initialProjects[0].title).toBe("RO Water Website");
+    expect(initialProjects[0].slug).toBe("ro-water-website");
+    expect(initialProjects[0].category).toBe("Web Application");
+    expect(initialProjects[0].live_url).toBe("https://ro-water-rouge.vercel.app/");
+    expect(initialProjects[0].github_url).toBeNull();
     expect(initialProjects[0].video).toBeNull();
     expect(initialProjects[0].cover_image).toBe("/projects/client-1/images/client-6.png");
 
-    // Verify client 2 has Sri Siva Medicals details and video
-    expect(initialProjects[1].slug).toBe("sri-siva-medicals");
+    // Verify client 2 has Medical Shop Website details and video
+    expect(initialProjects[1].title).toBe("Medical Shop Website");
+    expect(initialProjects[1].slug).toBe("medical-shop-website");
+    expect(initialProjects[1].category).toBe("Web Application");
+    expect(initialProjects[1].live_url).toBe("https://medical-project-wine-one.vercel.app/");
+    expect(initialProjects[1].github_url).toBeNull();
     expect(initialProjects[1].video).toBeDefined();
     expect(initialProjects[1].video?.src).toBe("/projects/client-2/videos/siva-medicals.mp4");
   });

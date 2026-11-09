@@ -7,7 +7,7 @@ import { Project } from "@/types";
 import { ProjectCard } from "@/components/projects/project-card";
 import { cn } from "@/lib/utils";
 
-const FILTER_CATEGORIES = ["All Projects", "Web Applications"] as const;
+const FILTER_CATEGORIES = ["All Projects", "Web Application"] as const;
 type FilterCategory = (typeof FILTER_CATEGORIES)[number];
 
 interface PortfolioSectionProps {
@@ -21,7 +21,10 @@ export function PortfolioSection({ initialProjects }: PortfolioSectionProps) {
     selectedCategory === "All Projects"
       ? initialProjects
       : initialProjects.filter(
-          (p) => p.category === "Web Applications" || p.category.includes("Web")
+          (p) =>
+            p.category === "Web Application" ||
+            p.category === "Web Applications" ||
+            p.category.includes("Web")
         );
 
   return (

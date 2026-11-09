@@ -2,23 +2,23 @@ import { Project } from "@/types";
 
 export const initialProjects: Project[] = [
   {
-    id: "p1-rtech-pure-water",
-    title: "R-Tech Pure Water — Commercial & Domestic RO Web Platform",
-    slug: "r-tech-pure-water",
+    id: "p1-ro-water-website",
+    title: "RO Water Website",
+    slug: "ro-water-website",
     short_description:
-      "A complete commercial and domestic RO water purifier sales & service web application built for R-Tech Pure Water in Tirupattur, featuring online service booking, product catalogs, and direct customer communication channels.",
+      "A complete commercial and domestic RO water purifier sales & service web application featuring online service booking, product catalogs, and direct customer communication channels.",
     full_description:
-      "R-Tech Pure Water is a production web application engineered for a premier water purification sales and service business located in Tirupattur, Tamil Nadu.\n\nThe business required an authentic digital storefront to replace manual inquiry handling, present their commercial and domestic reverse-osmosis (RO) products, showcase 99.9% purity benchmarks, and streamline incoming technician service appointments.\n\nKey features developed include:\n• Responsive digital product catalog for commercial and domestic RO purifiers, spares, and accessories\n• Online RO Service Booking workflow with scheduled maintenance appointments\n• Instant one-click WhatsApp and direct calling customer support channels\n• Fast loading times, mobile-first design, and clean high-contrast user interface tailored for local customers\n• SEO-optimized local business presence connected to Google Maps and contact coordinates",
-    category: "Web Applications",
+      "RO Water Website is an authentic, production web application built for a premier water purification sales and service business in Tamil Nadu.\n\nThe business required a dedicated digital platform to replace manual inquiry handling, showcase their commercial and domestic reverse-osmosis (RO) products, highlight 99.9% purity benchmarks, and streamline incoming customer service bookings.\n\nKey features developed include:\n• Responsive digital product catalog for commercial and domestic RO purifiers, spares, and accessories\n• Online RO Service Booking workflow with scheduled maintenance appointments\n• Instant one-click WhatsApp and direct calling customer support channels\n• Fast loading times, mobile-first design, and clean high-contrast user interface tailored for customers\n• SEO-optimized local business presence connected to Google Maps and contact coordinates",
+    category: "Web Application",
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Responsive Web Design", "WhatsApp API"],
     cover_image: "/projects/client-1/images/client-6.png",
-    live_url: "https://r-techpurewater.com",
-    github_url: "https://github.com/yoganathan-sys",
+    live_url: "https://ro-water-rouge.vercel.app/",
+    github_url: null,
     featured: true,
     published: true,
     created_at: "2026-10-17T14:30:00.000Z",
     updated_at: "2026-10-17T17:00:00.000Z",
-    client_name: "R-Tech Pure Water",
+    client_name: "RO Water Sales & Service",
     client_location: "Tirupattur, Tamil Nadu",
     gallery: [
       {
@@ -27,7 +27,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-1",
         publicAssetPath: "/projects/client-1/images/client-6.png",
-        caption: "R-Tech Pure Water official web application running live on desktop browser (r-techpurewater.com)",
+        caption: "RO Water Website live application running on desktop browser (ro-water-rouge.vercel.app)",
         displayOrder: 1,
       },
       {
@@ -45,7 +45,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-1",
         publicAssetPath: "/projects/client-1/images/client-2.png",
-        caption: "On-site delivery & client handover in front of R-Tech Pure Water store front",
+        caption: "On-site delivery & client handover in front of the RO sales & service store",
         displayOrder: 3,
       },
       {
@@ -88,23 +88,23 @@ export const initialProjects: Project[] = [
     video: null,
   },
   {
-    id: "p2-sri-siva-medicals",
-    title: "Sri Siva Medicals — Trusted Pharmacy & Healthcare Web Platform",
-    slug: "sri-siva-medicals",
+    id: "p2-medical-shop-website",
+    title: "Medical Shop Website",
+    slug: "medical-shop-website",
     short_description:
-      "A comprehensive digital pharmacy and healthcare platform built for Sri Siva Medicals, featuring online prescription inquiries, shop gallery, PWA app install, business hours, and pharmacist consultation.",
+      "A comprehensive digital pharmacy and healthcare platform featuring online prescription inquiries, shop gallery, PWA app install, business hours, and pharmacist consultation.",
     full_description:
-      "Sri Siva Medicals is an official healthcare and pharmacy web application created for Mr. Gangeyan M (Owner & Registered Pharmacist, D.Pharm) serving patients and families in Vadugamuthampatti and Kurusilapattu, Tamil Nadu.\n\nThe platform bridges neighborhood community health needs with digital accessibility, allowing customers to easily review available pharmaceutical categories, submit prescription inquiries, locate the clinic, and directly communicate with the pharmacist.\n\nKey features developed & delivered:\n• Digital prescription enquiry workflow for fast medicine availability verification\n• Progressive Web App (PWA) install capabilities for native mobile home screen access\n• Complete pharmacy shop gallery showcasing allopathic medicines, healthcare essentials, and wellness products\n• Integrated emergency contact, operating hours (9:00 AM – 9:00 PM), and WhatsApp consultation\n• Google Maps geolocation integration for instant clinic navigation\n• Deployed on Vercel with high-availability serverless architecture and instant mobile load speeds",
-    category: "Web Applications",
+      "Medical Shop Website is an official healthcare and pharmacy web application created for a registered pharmacist serving patients and families in Tamil Nadu.\n\nThe platform bridges community health needs with digital accessibility, allowing customers to easily review available pharmaceutical categories, submit prescription inquiries, locate the clinic, and directly communicate with the pharmacist.\n\nKey features developed & delivered:\n• Digital prescription enquiry workflow for fast medicine availability verification\n• Progressive Web App (PWA) install capabilities for native mobile home screen access\n• Complete pharmacy shop gallery showcasing allopathic medicines, healthcare essentials, and wellness products\n• Integrated emergency contact, operating hours, and WhatsApp consultation\n• Google Maps geolocation integration for instant clinic navigation\n• Deployed on Vercel with high-availability serverless architecture and instant mobile load speeds",
+    category: "Web Application",
     technologies: ["Next.js", "React", "Tailwind CSS", "PWA", "Vercel", "WhatsApp API"],
     cover_image: "/projects/client-2/images/med-2.png",
-    live_url: "https://sri-siva-medicals.vercel.app",
-    github_url: "https://github.com/yoganathan-sys",
+    live_url: "https://medical-project-wine-one.vercel.app/",
+    github_url: null,
     featured: true,
     published: true,
     created_at: "2026-11-06T21:50:00.000Z",
     updated_at: "2026-11-06T22:35:00.000Z",
-    client_name: "Sri Siva Medicals (Mr. Gangeyan M, Pharmacist)",
+    client_name: "Sri Siva Medicals",
     client_location: "Vadugamuthampatti / Kurusilapattu, Tamil Nadu",
     gallery: [
       {
@@ -113,7 +113,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-2",
         publicAssetPath: "/projects/client-2/images/med-2.png",
-        caption: "Sri Siva Medicals live web platform on pharmacy counter (sri-siva-medicals.vercel.app)",
+        caption: "Medical Shop Website live platform on pharmacy counter (medical-project-wine-one.vercel.app)",
         displayOrder: 1,
       },
       {
@@ -122,7 +122,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-2",
         publicAssetPath: "/projects/client-2/images/med-3.png",
-        caption: "About page with owner Mr. Gangeyan M profile and Project Completed checklist",
+        caption: "About page with owner profile and completed project checklist",
         displayOrder: 2,
       },
       {
@@ -131,7 +131,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-2",
         publicAssetPath: "/projects/client-2/images/med-1.png",
-        caption: "Pharmacist client standing at Sri Siva Medicals dispensing counter",
+        caption: "Pharmacist client standing at pharmacy dispensing counter",
         displayOrder: 3,
       },
       {
@@ -140,7 +140,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-2",
         publicAssetPath: "/projects/client-2/images/med-10.png",
-        caption: "Sri Siva Medicals & Dental Clinic exterior signboard at Kurusilapattu",
+        caption: "Exterior clinic & medical store sign board",
         displayOrder: 4,
       },
       {
@@ -149,7 +149,7 @@ export const initialProjects: Project[] = [
         mediaType: "image",
         projectFolder: "client-2",
         publicAssetPath: "/projects/client-2/images/med-7.png",
-        caption: "Official project handover ceremony with pharmacist owner Mr. Gangeyan M",
+        caption: "Official project handover ceremony with pharmacist client",
         displayOrder: 5,
       },
       {
@@ -201,7 +201,7 @@ export const initialProjects: Project[] = [
     video: {
       src: "/projects/client-2/videos/siva-medicals.mp4",
       type: "video/mp4",
-      title: "Sri Siva Medicals — Live On-Site Project Demonstration",
+      title: "Medical Shop Website — Live On-Site Demonstration",
       poster: "/projects/client-2/images/med-2.png",
     },
   },

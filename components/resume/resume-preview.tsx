@@ -96,3 +96,4 @@ export function ResumePreview({ pdfUrl = "/resume.pdf" }: ResumePreviewProps) {
     </div>
   );
 }
+

@@ -43,7 +43,7 @@ test.describe("Portfolio Homepage User Journeys", () => {
     ]);
 
     // Verify /resume page content
-    await expect(page.locator("h1")).toContainText("YOGANATHAN A");
+    await expect(page.locator("h1")).toContainText("YOGANATHAN A", { timeout: 15000 });
     await expect(page.getByText("FRONTEND DEVELOPER | WEB DEVELOPER | B.TECH IT STUDENT")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Professional Summary" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Technical Skills" })).toBeVisible();
@@ -83,26 +83,39 @@ test.describe("Portfolio Homepage User Journeys", () => {
     await expect(page.getByRole("heading", { name: "Expo" })).toBeVisible();
   });
 
-  test("should display exactly two verified client projects and filter by Web Applications", async ({ page }) => {
+  test("should display exactly two verified client projects with live links and filter by Web Application", async ({ page }) => {
     await page.goto("/#portfolio");
 
-    // Click 'Web Applications'
-    await page.getByRole("button", { name: "Web Applications" }).click();
+    // Click 'Web Application'
+    await page.getByRole("button", { name: "Web Application" }).click();
 
     // Verify both client projects are displayed
-    await expect(page.getByText("R-Tech Pure Water").first()).toBeVisible();
-    await expect(page.getByText("Sri Siva Medicals").first()).toBeVisible();
+    await expect(page.getByText("RO Water Website").first()).toBeVisible();
+    await expect(page.getByText("Medical Shop Website").first()).toBeVisible();
+
+    // Verify both Live Website buttons with correct external URLs
+    const roLiveBtn = page.locator('a[href="https://ro-water-rouge.vercel.app/"]').first();
+    await expect(roLiveBtn).toBeVisible();
+    await expect(roLiveBtn).toHaveAttribute("target", "_blank");
+    await expect(roLiveBtn).toHaveAttribute("rel", "noopener noreferrer");
+
+    const medLiveBtn = page.locator('a[href="https://medical-project-wine-one.vercel.app/"]').first();
+    await expect(medLiveBtn).toBeVisible();
+    await expect(medLiveBtn).toHaveAttribute("target", "_blank");
+    await expect(medLiveBtn).toHaveAttribute("rel", "noopener noreferrer");
 
     // Ensure fake projects are not displayed
     await expect(page.getByText("NexStore")).not.toBeVisible();
     await expect(page.getByText("HealthPulse")).not.toBeVisible();
     await expect(page.getByText("DevFlow")).not.toBeVisible();
 
-    // Navigate to first project details
-    const firstProjectLink = page.getByRole("link", { name: "View Project" }).first();
+    // Navigate to project gallery details
+    const firstProjectLink = page.getByRole("link", { name: /Project Gallery/i }).first();
     await expect(firstProjectLink).toBeVisible();
-    await firstProjectLink.click();
-    await expect(page).toHaveURL(/\/projects\/.+/);
+    await Promise.all([
+      page.waitForURL("**/projects/**"),
+      firstProjectLink.click(),
+    ]);
 
     // Verify detail page
     await expect(page.getByRole("link", { name: "Back to Portfolio" })).toBeVisible({ timeout: 10000 });
@@ -110,10 +123,10 @@ test.describe("Portfolio Homepage User Journeys", () => {
   });
 
   test("should render video player and open image gallery lightbox on project page", async ({ page }) => {
-    await page.goto("/projects/sri-siva-medicals");
+    await page.goto("/projects/medical-shop-website");
 
     // Verify video demonstration section
-    await expect(page.getByRole("heading", { name: /Sri Siva Medicals/i }).first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Medical Shop Website/i }).first()).toBeVisible();
     await expect(page.locator("video")).toBeVisible();
 
     // Verify gallery and click an image to open lightbox

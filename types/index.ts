@@ -2,6 +2,7 @@ export type ProjectCategory =
   | "All Projects"
   | "All"
   | "Web Applications"
+  | "Web Application"
   | "Mobile Applications"
   | "Full-Stack Projects"
   | "UI/UX Designs";
@@ -30,7 +31,7 @@ export interface Project {
   slug: string;
   short_description: string;
   full_description: string;
-  category: "Web Applications" | "Mobile Applications" | "Full-Stack Projects" | "UI/UX Designs";
+  category: "Web Applications" | "Web Application" | "Mobile Applications" | "Full-Stack Projects" | "UI/UX Designs";
   technologies: string[];
   cover_image: string;
   live_url?: string | null;

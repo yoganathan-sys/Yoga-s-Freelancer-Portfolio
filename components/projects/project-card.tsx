@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Github, ArrowRight, MapPin } from "lucide-react";
+import { ExternalLink, Images, MapPin } from "lucide-react";
 import { Project } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,23 +16,25 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <article className="group relative rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
       {/* Project Cover Image */}
       <div className="relative w-full aspect-[16/10] bg-zinc-950 overflow-hidden">
-        <Image
-          src={project.cover_image}
-          alt={project.title}
-          fill
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
-        />
+        <Link href={`/projects/${project.slug}`} className="block w-full h-full">
+          <Image
+            src={project.cover_image}
+            alt={project.title}
+            fill
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
+          />
+        </Link>
 
         {/* Category Badge Overlay */}
-        <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-          <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-black/80 backdrop-blur-md text-white border border-white/10 shadow-md">
+        <div className="absolute top-4 left-4 z-10 flex items-center gap-2 pointer-events-none">
+          <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-black/85 backdrop-blur-md text-white border border-white/10 shadow-md">
             {project.category}
           </span>
         </div>
 
         {project.featured && (
-          <div className="absolute top-4 right-4 z-10">
+          <div className="absolute top-4 right-4 z-10 pointer-events-none">
             <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-blue-600 text-white shadow-md uppercase tracking-wider">
               REAL CLIENT PROJECT
             </span>
@@ -52,7 +54,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
 
           {/* Title */}
-          <h3 className="text-xl font-bold font-heading text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+          <h3 className="text-xl sm:text-2xl font-bold font-heading text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
             <Link href={`/projects/${project.slug}`}>
               {project.title}
             </Link>
@@ -78,61 +80,42 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
 
-        {/* Card Actions */}
-        <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-2">
-          {/* View Details Link */}
+        {/* Card Actions: Live Website & Project Gallery */}
+        <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center gap-3">
+          {project.live_url && (
+            <Button
+              asChild
+              variant="default"
+              size="sm"
+              className="flex-1 rounded-xl font-bold text-xs tracking-wider uppercase bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all group/live h-10"
+            >
+              <a
+                href={project.live_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Live Website for ${project.title}`}
+                className="flex items-center justify-center gap-1.5"
+              >
+                <span>Live Website</span>
+                <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" />
+              </a>
+            </Button>
+          )}
+
           <Button
             asChild
-            variant="default"
+            variant="outline"
             size="sm"
-            className="rounded-xl font-semibold text-xs tracking-wide group/btn"
+            className="flex-1 rounded-xl font-semibold text-xs tracking-wider uppercase border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 group/gallery h-10"
           >
-            <Link href={`/projects/${project.slug}`} className="flex items-center gap-1.5">
-              <span>View Project</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1" />
+            <Link
+              href={`/projects/${project.slug}`}
+              className="flex items-center justify-center gap-1.5"
+            >
+              <Images className="w-3.5 h-3.5 text-zinc-500 group-hover/gallery:text-blue-500" />
+              <span>Project Gallery</span>
             </Link>
           </Button>
-
-          {/* External Links */}
-          <div className="flex items-center gap-1.5">
-            {project.live_url && (
-              <Button
-                asChild
-                variant="outline"
-                size="icon"
-                className="w-8 h-8 rounded-full border-zinc-300 dark:border-zinc-700 hover:bg-blue-50 dark:hover:bg-zinc-800 hover:text-blue-600"
-                title="Live Website"
-              >
-                <a
-                  href={project.live_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Live site for ${project.title}`}
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </Button>
-            )}
-
-            {project.github_url && (
-              <Button
-                asChild
-                variant="outline"
-                size="icon"
-                className="w-8 h-8 rounded-full border-zinc-300 dark:border-zinc-700"
-                title="GitHub Profile"
-              >
-                <a
-                  href={project.github_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`GitHub for ${project.title}`}
-                >
-                  <Github className="w-3.5 h-3.5" />
-                </a>
-              </Button>
-            )}
-          </div>
         </div>
       </div>
     </article>

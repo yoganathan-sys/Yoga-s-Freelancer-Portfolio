@@ -1,9 +1,9 @@
 {
   "client-1": {
-    "projectId": "p1-rtech-pure-water",
-    "projectName": "R-Tech Pure Water — Commercial & Domestic RO Web Platform",
-    "client": "R-Tech Pure Water",
-    "location": "Tirupattur, Tamil Nadu",
+    "projectId": "p1-ro-water-website",
+    "projectName": "RO Water Website",
+    "category": "Web Application",
+    "liveUrl": "https://ro-water-rouge.vercel.app/",
     "media": [
       {
         "id": "c1-m1",
@@ -11,7 +11,7 @@
         "mediaType": "image",
         "projectFolder": "client-1",
         "publicAssetPath": "/projects/client-1/images/client-6.png",
-        "caption": "R-Tech Pure Water official web application running live on desktop browser (r-techpurewater.com)",
+        "caption": "RO Water Website live application running on desktop browser (ro-water-rouge.vercel.app)",
         "displayOrder": 1
       },
       {
@@ -29,7 +29,7 @@
         "mediaType": "image",
         "projectFolder": "client-1",
         "publicAssetPath": "/projects/client-1/images/client-2.png",
-        "caption": "On-site delivery & client handover at R Tech Pure Water store front (Tirupattur)",
+        "caption": "On-site delivery & client handover in front of the RO sales & service store",
         "displayOrder": 3
       },
       {
@@ -38,7 +38,7 @@
         "mediaType": "image",
         "projectFolder": "client-1",
         "publicAssetPath": "/projects/client-1/images/client-3.png",
-        "caption": "Interactive web application hero section displaying Clean Water for Healthy Living & Water Purity statistics",
+        "caption": "Interactive web platform hero section displaying Clean Water for Healthy Living",
         "displayOrder": 4
       },
       {
@@ -72,10 +72,10 @@
     "video": null
   },
   "client-2": {
-    "projectId": "p2-sri-siva-medicals",
-    "projectName": "Sri Siva Medicals — Trusted Pharmacy & Healthcare Web Platform",
-    "client": "Sri Siva Medicals (Mr. Gangeyan M, Pharmacist)",
-    "location": "Vadugamuthampatti / Kurusilapattu, Tamil Nadu",
+    "projectId": "p2-medical-shop-website",
+    "projectName": "Medical Shop Website",
+    "category": "Web Application",
+    "liveUrl": "https://medical-project-wine-one.vercel.app/",
     "media": [
       {
         "id": "c2-m1",
@@ -83,7 +83,7 @@
         "mediaType": "image",
         "projectFolder": "client-2",
         "publicAssetPath": "/projects/client-2/images/med-2.png",
-        "caption": "Sri Siva Medicals live web platform on pharmacy counter (sri-siva-medicals.vercel.app)",
+        "caption": "Medical Shop Website live platform on pharmacy counter (medical-project-wine-one.vercel.app)",
         "displayOrder": 1
       },
       {
@@ -92,7 +92,7 @@
         "mediaType": "image",
         "projectFolder": "client-2",
         "publicAssetPath": "/projects/client-2/images/med-3.png",
-        "caption": "About page with owner Mr. Gangeyan M profile and Project Completed checklist",
+        "caption": "About page with owner profile and completed project checklist",
         "displayOrder": 2
       },
       {
@@ -101,7 +101,7 @@
         "mediaType": "image",
         "projectFolder": "client-2",
         "publicAssetPath": "/projects/client-2/images/med-1.png",
-        "caption": "Pharmacist client standing at Sri Siva Medicals dispensing counter",
+        "caption": "Pharmacist client standing at pharmacy dispensing counter",
         "displayOrder": 3
       },
       {
@@ -110,7 +110,7 @@
         "mediaType": "image",
         "projectFolder": "client-2",
         "publicAssetPath": "/projects/client-2/images/med-10.png",
-        "caption": "Sri Siva Medicals & Dental Clinic exterior signboard at Kurusilapattu",
+        "caption": "Exterior clinic & medical store sign board",
         "displayOrder": 4
       },
       {
@@ -119,7 +119,7 @@
         "mediaType": "image",
         "projectFolder": "client-2",
         "publicAssetPath": "/projects/client-2/images/med-7.png",
-        "caption": "Project handover ceremony with pharmacist owner Mr. Gangeyan M",
+        "caption": "Official project handover ceremony with pharmacist client",
         "displayOrder": 5
       },
       {
@@ -173,9 +173,8 @@
       "mediaType": "video",
       "projectFolder": "client-2",
       "publicAssetPath": "/projects/client-2/videos/siva-medicals.mp4",
-      "caption": "On-site video demonstration & live walk-through of Sri Siva Medicals web platform",
+      "caption": "Medical Shop Website — Live On-Site Demonstration",
       "displayOrder": 11
     }
   }
 }
-
