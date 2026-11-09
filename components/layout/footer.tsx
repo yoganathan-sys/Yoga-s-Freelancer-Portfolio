@@ -1,19 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUp, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Phone, Download } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profileConfig } from "@/data/profile";
-import { Button } from "@/components/ui/button";
 
 const FOOTER_NAV = [
-  { name: "Home", href: "#home" },
-  { name: "About Me", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Skills", href: "#skills" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Process", href: "#process" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/#home" },
+  { name: "About Me", href: "/#about" },
+  { name: "Services", href: "/#services" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Portfolio", href: "/#portfolio" },
+  { name: "Resume", href: "/resume" },
+  { name: "Process", href: "/#process" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Footer() {
@@ -24,12 +24,12 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black text-white border-t border-zinc-800 relative z-10">
+    <footer className="bg-black text-white border-t border-zinc-800 relative z-10 print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-zinc-800/80">
           {/* Brand & Introduction */}
           <div className="md:col-span-5 space-y-4">
-            <Link href="#home" className="flex items-center gap-2.5 group">
+            <Link href="/#home" className="flex items-center gap-2.5 group">
               <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center font-bold text-white tracking-widest text-base group-hover:border-white transition-colors">
                 <span className="font-heading font-black">Y</span>
                 <span className="text-blue-500 font-heading font-black">A</span>
@@ -76,14 +76,27 @@ export function Footer() {
             </h4>
             <div className="grid grid-cols-2 gap-2.5">
               {FOOTER_NAV.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   className="text-sm text-zinc-400 hover:text-white transition-colors py-1"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
+            </div>
+
+            {/* Resume Download Direct Link */}
+            <div className="pt-3 border-t border-zinc-900">
+              <a
+                href={profileConfig.resumeUrl}
+                download="Yoganathan_A_Resume.pdf"
+                className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-zinc-300 hover:text-white transition-colors group"
+                aria-label="Download Resume PDF"
+              >
+                <Download className="w-3.5 h-3.5 text-blue-400 group-hover:-translate-y-0.5 transition-transform" />
+                <span>Download Resume (PDF)</span>
+              </a>
             </div>
           </div>
 
@@ -170,4 +183,3 @@ export function Footer() {
     </footer>
   );
 }
-

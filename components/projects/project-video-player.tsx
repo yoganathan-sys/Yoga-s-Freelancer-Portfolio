@@ -77,3 +77,4 @@ export function ProjectVideoPlayer({ video }: ProjectVideoPlayerProps) {
     </section>
   );
 }
+

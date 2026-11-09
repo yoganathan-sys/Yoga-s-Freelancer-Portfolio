@@ -4,6 +4,7 @@ import { servicesData } from "@/data/services";
 import { skillsData, skillCategories } from "@/data/skills";
 import { initialProjects } from "@/data/projects";
 import { processSteps } from "@/data/process";
+import { resumeData } from "@/data/resume";
 import { slugify, formatDate } from "@/lib/utils";
 
 describe("Profile Configuration", () => {
@@ -20,7 +21,25 @@ describe("Profile Configuration", () => {
   });
 
   it("should have resumeUrl configured", () => {
-    expect(profileConfig.resumeUrl).toBe("/assets/Yoganathan_A_Resume.pdf");
+    expect(profileConfig.resumeUrl).toBe("/resume.pdf");
+  });
+});
+
+describe("Resume Data", () => {
+  it("should have accurate resume details matching the original PDF", () => {
+    expect(resumeData.name).toBe("YOGANATHAN A");
+    expect(resumeData.title).toBe("FRONTEND DEVELOPER | WEB DEVELOPER | B.TECH IT STUDENT");
+    expect(resumeData.contact.email).toBe("yoganathan162008@gmail.com");
+    expect(resumeData.contact.linkedin).toBe("https://www.linkedin.com/in/yoganathana");
+    expect(resumeData.contact.github).toBe("https://github.com/yoganathan-sys");
+    expect(resumeData.summary).toContain("Passionate B.Tech Information Technology student");
+    expect(resumeData.skills.frontend).toContain("HTML5 (Semantic)");
+    expect(resumeData.skills.backendAndLanguages).toContain("PHP");
+    expect(resumeData.skills.databasesAndTools).toContain("Supabase");
+    expect(resumeData.projects).toHaveLength(3);
+    expect(resumeData.education.degree).toBe("Bachelor of Technology (B.Tech)");
+    expect(resumeData.education.status).toBe("Degree In Progress");
+    expect(resumeData.pdfUrl).toBe("/resume.pdf");
   });
 });
 

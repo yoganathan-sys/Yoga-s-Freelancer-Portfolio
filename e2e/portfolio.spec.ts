@@ -14,7 +14,7 @@ test.describe("Portfolio Homepage User Journeys", () => {
     await expect(page.getByRole("link", { name: "CONTACT ME" })).toBeVisible();
   });
 
-  test("should have functional navigation links", async ({ page }) => {
+  test("should have functional navigation links including Resume", async ({ page }) => {
     await page.goto("/");
 
     const nav = page.locator("nav");
@@ -22,8 +22,47 @@ test.describe("Portfolio Homepage User Journeys", () => {
     await expect(nav.getByRole("link", { name: "Services" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Skills" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Portfolio" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Resume" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Process" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Contact" })).toBeVisible();
+  });
+
+  test("should have functional resume buttons in About Me and navigate to /resume", async ({ page }) => {
+    await page.goto("/#about");
+
+    const aboutSection = page.locator("#about");
+    const downloadBtn = aboutSection.getByRole("link", { name: /Download Resume/i });
+    await expect(downloadBtn).toBeVisible();
+    await expect(downloadBtn).toHaveAttribute("href", "/resume.pdf");
+
+    const viewResumeBtn = aboutSection.getByRole("link", { name: /View Resume/i });
+    await expect(viewResumeBtn).toBeVisible();
+    await Promise.all([
+      page.waitForURL("**/resume"),
+      viewResumeBtn.click(),
+    ]);
+
+    // Verify /resume page content
+    await expect(page.locator("h1")).toContainText("YOGANATHAN A");
+    await expect(page.getByText("FRONTEND DEVELOPER | WEB DEVELOPER | B.TECH IT STUDENT")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Professional Summary" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Technical Skills" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Featured Projects" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Education" })).toBeVisible();
+
+    // Verify 3 resume projects
+    await expect(page.getByText("Yoga's Parking System")).toBeVisible();
+    await expect(page.getByText("Medical Shop Website")).toBeVisible();
+    await expect(page.getByText("Code Time & Space Analyzer")).toBeVisible();
+
+    // Verify education
+    await expect(page.getByText("Bachelor of Technology (B.Tech) in Information Technology")).toBeVisible();
+    await expect(page.getByText("Degree In Progress")).toBeVisible();
+
+    // Verify footer resume link
+    const footerResumeLink = page.locator("footer").getByRole("link", { name: /Download Resume/i });
+    await expect(footerResumeLink).toBeVisible();
+    await expect(footerResumeLink).toHaveAttribute("href", "/resume.pdf");
   });
 
   test("should display 6 services cards", async ({ page }) => {
@@ -63,7 +102,7 @@ test.describe("Portfolio Homepage User Journeys", () => {
     const firstProjectLink = page.getByRole("link", { name: "View Project" }).first();
     await expect(firstProjectLink).toBeVisible();
     await firstProjectLink.click();
-    await page.waitForURL("**/projects/**");
+    await expect(page).toHaveURL(/\/projects\/.+/);
 
     // Verify detail page
     await expect(page.getByRole("link", { name: "Back to Portfolio" })).toBeVisible({ timeout: 10000 });

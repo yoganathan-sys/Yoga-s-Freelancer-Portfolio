@@ -69,6 +69,6 @@ export const profileConfig: ProfileConfig = {
     phone: "tel:+919025281363",
     whatsapp: `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_PREFILLED_MESSAGE}`,
   },
-  resumeUrl: "/assets/Yoganathan_A_Resume.pdf",
+  resumeUrl: "/resume.pdf",
   avatarUrl: "/images/profile-photo.png",
 };

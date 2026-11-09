@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Download, CheckCircle2, Terminal, Code2, ShieldCheck, Sparkles } from "lucide-react";
+import { CheckCircle2, Terminal, Code2, ShieldCheck, Sparkles, FileText } from "lucide-react";
 import { profileConfig } from "@/data/profile";
 import { Button } from "@/components/ui/button";
 import { TechGeometricCanvas } from "@/components/3d/tech-geometric";
+import { ResumeDownloadButton } from "@/components/resume/resume-download-button";
 
 export function AboutSection() {
   return (
@@ -125,29 +127,31 @@ export function AboutSection() {
               </div>
             </div>
 
-            {/* Resume Download Action */}
+            {/* Resume Integration Action Buttons */}
             <div className="pt-6 flex flex-wrap items-center gap-4">
-              <Button
-                asChild
-                variant="heroDark"
+              <ResumeDownloadButton
+                variant="primary"
                 size="lg"
-                className="font-bold tracking-wide rounded-full shadow-lg group hover:scale-105 transition-all"
-              >
-                <a
-                  href={profileConfig.resumeUrl}
-                  download="Yoganathan_A_Resume.pdf"
-                  className="flex items-center gap-2"
-                >
-                  <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
-                  <span>Download Resume</span>
-                </a>
-              </Button>
+                href={profileConfig.resumeUrl}
+              />
 
               <Button
                 asChild
                 variant="outline"
                 size="lg"
-                className="font-semibold tracking-wide rounded-full border-zinc-300 dark:border-zinc-700 hover:scale-105 transition-all"
+                className="font-semibold tracking-wide rounded-full border-zinc-300 dark:border-zinc-700 hover:scale-105 transition-all gap-2"
+              >
+                <Link href="/resume">
+                  <FileText className="w-4 h-4" />
+                  <span>View Resume</span>
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="ghost"
+                size="lg"
+                className="font-semibold tracking-wide rounded-full text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
               >
                 <a href="#services">
                   <span>Explore Services</span>
@@ -160,4 +164,3 @@ export function AboutSection() {
     </section>
   );
 }
-

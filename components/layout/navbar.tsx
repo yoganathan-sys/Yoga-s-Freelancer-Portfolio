@@ -2,24 +2,33 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
-  { name: "Home", href: "#home" },
-  { name: "About Me", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Skills", href: "#skills" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Process", href: "#process" },
-  { name: "Contact", href: "#contact" },
+interface NavLinkItem {
+  name: string;
+  href: string;
+  isPage?: boolean;
+}
+
+const NAV_LINKS: NavLinkItem[] = [
+  { name: "Home", href: "/#home" },
+  { name: "About Me", href: "/#about" },
+  { name: "Services", href: "/#services" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Portfolio", href: "/#portfolio" },
+  { name: "Resume", href: "/resume", isPage: true },
+  { name: "Process", href: "/#process" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,37 +38,49 @@ export function Navbar() {
         setIsScrolled(false);
       }
 
-      // Detect active section
-      const sections = NAV_LINKS.map((link) => link.href.substring(1));
-      const scrollPos = window.scrollY + 200;
+      if (pathname === "/") {
+        const sections = ["home", "about", "services", "skills", "portfolio", "process", "contact"];
+        const scrollPos = window.scrollY + 200;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
-          break;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i]);
+          if (el && el.offsetTop <= scrollPos) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: NavLinkItem) => {
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+
+    if (link.isPage) {
+      // Normal navigation to /resume
+      return;
+    }
+
+    if (pathname === "/") {
+      e.preventDefault();
+      const hash = link.href.replace("/#", "");
+      const target = document.getElementById(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
+
+  const isResumeActive = pathname === "/resume";
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
-        isScrolled
+        isScrolled || pathname !== "/"
           ? "bg-black/90 backdrop-blur-md border-b border-zinc-800/80 py-3 shadow-lg"
           : "bg-transparent py-5"
       )}
@@ -68,8 +89,7 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           {/* Brand Logo - Top Left */}
           <Link
-            href="#home"
-            onClick={(e) => scrollToSection(e, "#home")}
+            href="/#home"
             className="group flex items-center gap-2.5 transition-transform duration-200 hover:scale-105"
           >
             <div className="w-10 h-10 rounded-xl bg-black border border-white/20 flex items-center justify-center font-bold text-white tracking-widest text-base shadow-sm group-hover:border-white transition-colors">
@@ -89,12 +109,15 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2 bg-zinc-900/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-zinc-800/50">
             {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const isActive = link.isPage
+                ? isResumeActive
+                : pathname === "/" && activeSection === link.href.replace("/#", "");
+
               return (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
+                  onClick={(e) => handleLinkClick(e, link)}
                   className={cn(
                     "relative px-3.5 py-1.5 text-xs uppercase tracking-wider font-medium rounded-full transition-all duration-200",
                     isActive
@@ -106,7 +129,7 @@ export function Navbar() {
                   {isActive && (
                     <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full" />
                   )}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -119,14 +142,10 @@ export function Navbar() {
               size="pill"
               className="text-xs uppercase tracking-wider font-bold shadow-md hover:shadow-white/20 group"
             >
-              <a
-                href="#contact"
-                onClick={(e) => scrollToSection(e, "#contact")}
-                className="flex items-center gap-1.5"
-              >
+              <Link href="/#contact" className="flex items-center gap-1.5">
                 <span>CONTACT ME</span>
                 <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
+              </Link>
             </Button>
           </div>
 
@@ -138,12 +157,9 @@ export function Navbar() {
               size="sm"
               className="rounded-full text-[11px] font-bold px-3 py-1 sm:hidden"
             >
-              <a
-                href="#contact"
-                onClick={(e) => scrollToSection(e, "#contact")}
-              >
+              <Link href="/#contact">
                 CONTACT
-              </a>
+              </Link>
             </Button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -162,12 +178,15 @@ export function Navbar() {
         <div className="lg:hidden bg-zinc-950/95 backdrop-blur-xl border-b border-zinc-800 px-6 pt-4 pb-8 transition-all animate-in slide-in-from-top">
           <div className="flex flex-col gap-2">
             {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const isActive = link.isPage
+                ? isResumeActive
+                : pathname === "/" && activeSection === link.href.replace("/#", "");
+
               return (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
+                  onClick={(e) => handleLinkClick(e, link)}
                   className={cn(
                     "flex items-center justify-between py-3 px-4 rounded-xl text-sm font-medium transition-colors",
                     isActive
@@ -177,7 +196,7 @@ export function Navbar() {
                 >
                   <span>{link.name}</span>
                   {isActive && <div className="w-2 h-2 rounded-full bg-blue-500" />}
-                </a>
+                </Link>
               );
             })}
             <div className="pt-4 border-t border-zinc-800 mt-2">
@@ -186,12 +205,12 @@ export function Navbar() {
                 variant="heroWhite"
                 className="w-full justify-center rounded-xl font-bold uppercase tracking-wider py-3"
               >
-                <a
-                  href="#contact"
-                  onClick={(e) => scrollToSection(e, "#contact")}
+                <Link
+                  href="/#contact"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   CONTACT ME
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
@@ -200,4 +219,3 @@ export function Navbar() {
     </header>
   );
 }
-
