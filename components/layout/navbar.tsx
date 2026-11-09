@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { InstallButton } from "@/components/pwa/install-button";
 import { cn } from "@/lib/utils";
 
 interface NavLinkItem {
@@ -134,8 +135,9 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* White rounded "CONTACT ME" button (as in Gajda reference) */}
+          {/* White rounded "CONTACT ME" button (as in Gajda reference) + PWA Install */}
           <div className="hidden sm:flex items-center gap-3">
+            <InstallButton variant="nav" />
             <Button
               asChild
               variant="heroWhite"
@@ -199,7 +201,8 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <div className="pt-4 border-t border-zinc-800 mt-2">
+            <div className="pt-4 border-t border-zinc-800 mt-2 space-y-2.5">
+              <InstallButton variant="mobile" />
               <Button
                 asChild
                 variant="heroWhite"

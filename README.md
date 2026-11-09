@@ -47,10 +47,17 @@ Showcases genuine, deployed client web development projects with authentic media
 - **Automatic Email Notifications:** Dispatches complete project enquiries to `yoganathan162008@gmail.com` via the Resend API with admin delivery tracking.
 - **Database Persistence:** Inquiries are stored in Supabase PostgreSQL with anti-spam honeypot defense.
 
-### 6. Interactive 3D WebGL Canvas
+### 6. Progressive Web App (PWA) & Offline Architecture
+- **Fully Installable:** Supports Android (Google Chrome, Samsung Internet), iOS (Safari Add to Home Screen with guided dialog), and Desktop (Chrome, Edge).
+- **Branded YA Application Icons:** Monogram vector branding in standard sizes (`icon-192x192.png`, `icon-512x512.png`, `icon-maskable-512x512.png`, `apple-touch-icon.png`).
+- **Interactive Install Actions:** "INSTALL APP" triggers in desktop header, mobile navigation drawer, and footer, with smart install banner.
+- **Service Worker (`public/sw.js`):** Network-first navigation strategy, automatic stale cache cleanup, and strict security exclusions (never caches Supabase auth, private `/admin`, or API mutations).
+- **Dedicated Offline Page:** Custom fallback route at `/offline` with network reconnect detection and retry functionality.
+
+### 7. Interactive 3D WebGL Canvas
 - Embedded Three.js / React Three Fiber interactive 3D model in the About section with smooth orbit controls and hover physics.
 
-### 7. Administrative Control Center (`/admin`)
+### 8. Administrative Control Center (`/admin`)
 - Secure admin dashboard protected by Supabase Auth.
 - Real-time inquiry manager with status filters (`unread`, `read`, `replied`, `archived`) and one-click email retry pipelines.
 - Project CRUD manager for publishing, updating, and managing case studies.

@@ -100,10 +100,18 @@ function validateAssets() {
     }
   }
 
-  // 4. Verify Profile Photo & Resume
+  // 4. Verify Profile Photo, Resume & PWA Assets
   const extraAssets = [
     { name: "Profile Photo", path: "images/profile-photo.png" },
     { name: "Resume PDF", path: "resume.pdf" },
+    { name: "PWA Icon 192x192", path: "icons/icon-192x192.png" },
+    { name: "PWA Icon 512x512", path: "icons/icon-512x512.png" },
+    { name: "PWA Maskable Icon 512x512", path: "icons/icon-maskable-512x512.png" },
+    { name: "Apple Touch Icon", path: "icons/apple-touch-icon.png" },
+    { name: "Favicon 32x32", path: "icons/favicon-32x32.png" },
+    { name: "PWA Manifest JSON", path: "manifest.json" },
+    { name: "PWA WebManifest", path: "manifest.webmanifest" },
+    { name: "Service Worker", path: "sw.js" },
   ];
 
   for (const asset of extraAssets) {

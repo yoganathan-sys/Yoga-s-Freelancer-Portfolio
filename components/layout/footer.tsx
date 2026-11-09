@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUp, Github, Linkedin, Youtube, Mail, Phone, Download } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
+import { InstallButton } from "@/components/pwa/install-button";
 import { profileConfig } from "@/data/profile";
 
 const FOOTER_NAV = [
@@ -167,13 +168,14 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <Link
                 href="/admin"
                 className="text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors underline-offset-4 hover:underline"
               >
                 → Admin Portal
               </Link>
+              <InstallButton variant="footer" />
             </div>
           </div>
         </div>

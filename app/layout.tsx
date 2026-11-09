@@ -3,6 +3,9 @@ import { Inter, Montserrat, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { profileConfig } from "@/data/profile";
+import { PWAProvider } from "@/components/pwa/pwa-context";
+import { IOSInstallDialog } from "@/components/pwa/ios-install-dialog";
+import { InstallBanner } from "@/components/pwa/install-banner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +30,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -36,6 +40,23 @@ export const metadata: Metadata = {
     template: `%s | ${profileConfig.name}`,
   },
   description: profileConfig.tagline,
+  applicationName: "Yoganathan A — Developer Portfolio",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Yoganathan",
+  },
+  icons: {
+    icon: [
+      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   keywords: [
     "Yoganathan A",
     "Freelance Full-Stack Developer",
@@ -46,6 +67,7 @@ export const metadata: Metadata = {
     "Supabase Expert",
     "Web Application Development",
     "Mobile Application Development",
+    "PWA Developer",
   ],
   authors: [{ name: profileConfig.name, url: profileConfig.socialLinks.github }],
   creator: profileConfig.name,
@@ -94,10 +116,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${montserrat.variable} ${firaCode.variable} font-sans antialiased bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 selection:bg-blue-600 selection:text-white`}
       >
-        <CustomCursor />
-        {children}
+        <PWAProvider>
+          <CustomCursor />
+          {children}
+          <InstallBanner />
+          <IOSInstallDialog />
+        </PWAProvider>
       </body>
     </html>
   );
 }
-

@@ -468,4 +468,36 @@ test.describe("Portfolio Homepage User Journeys", () => {
     // 4. Assert zero failed image responses
     expect(failedImageRequests).toEqual([]);
   });
+
+  test("should render PWA metadata, manifest link, install buttons, and offline page", async ({ page }) => {
+    await page.goto("/");
+
+    // 1. Verify Manifest and Apple Touch Icon links in <head>
+    const manifestLink = page.locator('link[rel="manifest"]');
+    await expect(manifestLink).toHaveAttribute("href", "/manifest.webmanifest");
+
+    const appleTouchIcon = page.locator('link[rel="apple-touch-icon"]');
+    await expect(appleTouchIcon).toHaveAttribute("href", "/icons/apple-touch-icon.png");
+
+    // 2. Verify Desktop Navigation Install App Button
+    const navInstallBtn = page.locator('header button[aria-label="Install Portfolio Application"]');
+    await expect(navInstallBtn).toBeVisible();
+    await expect(navInstallBtn).toContainText("INSTALL APP");
+
+    // 3. Verify Footer Install App Button
+    const footerInstallBtn = page.locator('footer button[aria-label="Install Portfolio Application"]');
+    await expect(footerInstallBtn).toBeVisible();
+    await expect(footerInstallBtn).toContainText("INSTALL APP");
+
+    // 4. Click Install App and verify dialog/action
+    await navInstallBtn.click();
+    // In headless browser without native prompt event, it falls back to the guided dialog
+    await expect(page.getByRole("heading", { name: /Install on Your iPhone|Install Yoganathan's Portfolio/i })).toBeVisible();
+
+    // 5. Test Dedicated Offline Page (/offline)
+    await page.goto("/offline");
+    await expect(page.getByRole("heading", { name: "You're Currently Offline" })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Try Again/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Go to Home/i })).toBeVisible();
+  });
 });
