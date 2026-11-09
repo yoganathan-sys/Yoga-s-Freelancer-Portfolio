@@ -31,6 +31,7 @@ import { LocationCard } from "@/components/contact/location-card";
 const contactFormSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters."),
   email: z.string().email("Please provide a valid email address."),
+  phone: z.string().optional(),
   projectType: z.string().min(1, "Please select a project type."),
   budgetRange: z.string().optional(),
   projectDescription: z
@@ -62,6 +63,7 @@ export function ContactSection() {
   const [submitStatus, setSubmitStatus] = useState<{
     success?: boolean;
     message?: string;
+    whatsAppUrl?: string;
   } | null>(null);
 
   const {
@@ -74,6 +76,7 @@ export function ContactSection() {
     defaultValues: {
       fullName: "",
       email: "",
+      phone: "",
       projectType: "Web Application",
       budgetRange: "$3,000 - $5,000",
       projectDescription: "",
@@ -89,6 +92,7 @@ export function ContactSection() {
       const formData = new FormData();
       formData.append("fullName", data.fullName);
       formData.append("email", data.email);
+      formData.append("phone", data.phone || "");
       formData.append("projectType", data.projectType);
       formData.append("budgetRange", data.budgetRange || "");
       formData.append("projectDescription", data.projectDescription);
@@ -100,6 +104,7 @@ export function ContactSection() {
         setSubmitStatus({
           success: true,
           message: result.message,
+          whatsAppUrl: result.whatsAppUrl,
         });
         reset();
       } else {
@@ -319,26 +324,49 @@ export function ContactSection() {
               </div>
 
               {submitStatus?.success ? (
-                <div className="py-12 flex flex-col items-center text-center space-y-4">
+                <div className="py-8 sm:py-10 flex flex-col items-center text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center animate-bounce">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-bold font-heading text-zinc-900 dark:text-white">
                     Inquiry Received!
                   </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
-                    {submitStatus.message}
+                  <p className="text-base font-semibold text-emerald-600 dark:text-emerald-400 max-w-lg">
+                    Thank you! Your project enquiry has been received successfully.
                   </p>
-                  <Button
-                    onClick={() => setSubmitStatus(null)}
-                    variant="outline"
-                    className="rounded-full mt-4"
-                  >
-                    Send Another Message
-                  </Button>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
+                    Continue to WhatsApp to share your project details directly with me.
+                  </p>
+
+                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+                    {submitStatus.whatsAppUrl && (
+                      <Button
+                        asChild
+                        className="w-full sm:w-auto justify-center bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-[#25D366]/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 gap-2.5 text-sm"
+                      >
+                        <a
+                          href={submitStatus.whatsAppUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Send Project Details via WhatsApp"
+                        >
+                          <WhatsAppIcon className="w-5 h-5" />
+                          <span>Send Project Details via WhatsApp</span>
+                        </a>
+                      </Button>
+                    )}
+
+                    <Button
+                      onClick={() => setSubmitStatus(null)}
+                      variant="outline"
+                      className="w-full sm:w-auto justify-center rounded-2xl border-zinc-300 dark:border-zinc-700 font-semibold text-xs tracking-wider uppercase py-3.5 px-6"
+                    >
+                      Submit Another Enquiry
+                    </Button>
+                  </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
                   {/* Honeypot field (hidden from real users for spam deterrence) */}
                   <div className="hidden" aria-hidden="true">
                     <label htmlFor="website_honeypot">Leave blank</label>
@@ -390,8 +418,24 @@ export function ContactSection() {
                     </div>
                   </div>
 
-                  {/* Row 2: Project Type & Budget Range */}
+                  {/* Row 2: Customer Phone / WhatsApp & Project Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">
+                        Customer Phone / WhatsApp Number{" "}
+                        <span className="text-zinc-400 font-normal font-sans text-[11px]">(Optional)</span>
+                      </label>
+                      <Input
+                        type="tel"
+                        placeholder="e.g. +91 90252 81363"
+                        {...register("phone")}
+                        className={errors.phone ? "border-red-500 focus-visible:ring-red-500" : ""}
+                      />
+                      {errors.phone && (
+                        <p className="text-xs text-red-500 mt-1.5">{errors.phone.message}</p>
+                      )}
+                    </div>
+
                     <div>
                       <label className="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">
                         Project Type <span className="text-red-500">*</span>
@@ -410,22 +454,23 @@ export function ContactSection() {
                         <p className="text-xs text-red-500 mt-1.5">{errors.projectType.message}</p>
                       )}
                     </div>
+                  </div>
 
-                    <div>
-                      <label className="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">
-                        Budget Range (Optional)
-                      </label>
-                      <select
-                        {...register("budgetRange")}
-                        className="flex h-11 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-100 dark:focus-visible:ring-zinc-400"
-                      >
-                        {BUDGET_OPTIONS.map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                  {/* Row 3: Budget Range */}
+                  <div>
+                    <label className="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">
+                      Budget Range <span className="text-zinc-400 font-normal font-sans text-[11px]">(Optional)</span>
+                    </label>
+                    <select
+                      {...register("budgetRange")}
+                      className="flex h-11 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-100 dark:focus-visible:ring-zinc-400"
+                    >
+                      {BUDGET_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   {/* Project Description */}

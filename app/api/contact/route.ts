@@ -13,6 +13,12 @@ const contactApiSchema = z.object({
     .trim()
     .email("Please provide a valid email address.")
     .max(120, "Email address is too long."),
+  phone: z
+    .string()
+    .trim()
+    .max(30, "Phone number is too long.")
+    .optional()
+    .nullable(),
   projectType: z
     .string()
     .trim()
@@ -116,6 +122,7 @@ export async function POST(req: NextRequest) {
     const result = await submitContactMessage({
       fullName: parsed.data.fullName,
       email: parsed.data.email,
+      phone: parsed.data.phone || null,
       projectType: parsed.data.projectType,
       budgetRange: parsed.data.budgetRange || null,
       projectDescription: parsed.data.projectDescription,

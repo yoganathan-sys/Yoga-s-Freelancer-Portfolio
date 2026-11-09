@@ -224,14 +224,34 @@ test.describe("Portfolio Homepage User Journeys", () => {
     // Fill valid form
     await page.fill('input[placeholder="e.g. John Doe"]', "David Miller");
     await page.fill('input[placeholder="e.g. john@company.com"]', "david@millertech.com");
+    await page.fill('input[placeholder="e.g. +91 90252 81363"]', "+91 90252 81363");
     await page.fill('textarea[placeholder*="Tell me about your product"]', "Looking to build a custom logistics web application.");
     await page.getByRole("button", { name: "Send Message" }).click();
 
     // Verify submission confirmation
     await expect(page.getByText("Inquiry Received!")).toBeVisible({ timeout: 10000 });
     await expect(
-      page.getByText("Thank you! Your project enquiry has been submitted successfully. I'll get back to you soon.")
+      page.getByText("Thank you! Your project enquiry has been received successfully.")
     ).toBeVisible();
+    await expect(
+      page.getByText("Continue to WhatsApp to share your project details directly with me.")
+    ).toBeVisible();
+
+    // Verify WhatsApp button appears with prefilled URL containing customer details
+    const waSubmitBtn = page.getByRole("link", { name: /Send Project Details via WhatsApp/i });
+    await expect(waSubmitBtn).toBeVisible();
+    await expect(waSubmitBtn).toHaveAttribute("target", "_blank");
+    const href = await waSubmitBtn.getAttribute("href");
+    expect(href).toContain("wa.me/919025281363?text=");
+    const decodedMsg = decodeURIComponent(href!);
+    expect(decodedMsg).toContain("David Miller");
+    expect(decodedMsg).toContain("david@millertech.com");
+    expect(decodedMsg).toContain("+91 90252 81363");
+    expect(decodedMsg).toContain("NEW CLIENT PROJECT ENQUIRY");
+
+    // Verify reset button "Submit Another Enquiry"
+    const resetBtn = page.getByRole("button", { name: /Submit Another Enquiry/i });
+    await expect(resetBtn).toBeVisible();
   });
 
   test("should render the admin login page and allow inspecting client inquiries with email status badges", async ({ page }) => {

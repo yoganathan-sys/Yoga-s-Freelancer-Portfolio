@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { submitContactMessage } from "@/lib/messages";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const contactSchema = z.object({
   fullName: z
@@ -14,6 +15,11 @@ const contactSchema = z.object({
     .trim()
     .email("Please provide a valid email address.")
     .max(120, "Email address is too long."),
+  phone: z
+    .string()
+    .trim()
+    .max(30, "Phone number is too long.")
+    .optional(),
   projectType: z
     .string()
     .trim()
@@ -43,6 +49,7 @@ export async function submitContactAction(
   errors?: Record<string, string[]>;
   messageId?: string;
   emailSent?: boolean;
+  whatsAppUrl?: string;
 }> {
   try {
     const rawHoneypot = ((formData.get("website_honeypot") as string) || "").trim();
@@ -52,13 +59,14 @@ export async function submitContactAction(
       return {
         success: true,
         message:
-          "Thank you! Your project enquiry has been submitted successfully. I'll get back to you soon.",
+          "Thank you! Your project enquiry has been received successfully.",
       };
     }
 
     const rawData = {
       fullName: (formData.get("fullName") as string) || "",
       email: (formData.get("email") as string) || "",
+      phone: (formData.get("phone") as string) || undefined,
       projectType: (formData.get("projectType") as string) || "",
       budgetRange: (formData.get("budgetRange") as string) || undefined,
       projectDescription: (formData.get("projectDescription") as string) || "",
@@ -81,6 +89,7 @@ export async function submitContactAction(
     const result = await submitContactMessage({
       fullName: validated.data.fullName,
       email: validated.data.email,
+      phone: validated.data.phone || null,
       projectType: validated.data.projectType,
       budgetRange: validated.data.budgetRange || null,
       projectDescription: validated.data.projectDescription,
@@ -95,12 +104,23 @@ export async function submitContactAction(
       };
     }
 
+    // 4. Generate prefilled WhatsApp Click to Chat URL with full enquiry details
+    const whatsAppUrl = buildWhatsAppUrl({
+      fullName: validated.data.fullName,
+      email: validated.data.email,
+      phone: validated.data.phone || null,
+      projectType: validated.data.projectType,
+      budgetRange: validated.data.budgetRange || null,
+      projectDescription: validated.data.projectDescription,
+    });
+
     return {
       success: true,
       messageId: result.messageId,
       emailSent: result.emailSent,
+      whatsAppUrl,
       message:
-        "Thank you! Your project enquiry has been submitted successfully. I'll get back to you soon.",
+        "Thank you! Your project enquiry has been received successfully.",
     };
   } catch (err: any) {
     console.error("submitContactAction exception:", err);

@@ -4,6 +4,7 @@ export interface ContactEmailPayload {
   inquiryId: string;
   fullName: string;
   email: string;
+  phone?: string | null;
   projectType: string;
   budgetRange?: string | null;
   projectDescription: string;
@@ -57,6 +58,7 @@ A new potential client has contacted you through your portfolio website.
 CUSTOMER DETAILS:
 - Full Name: ${payload.fullName}
 - Email Address: ${payload.email}
+- Phone / WhatsApp: ${payload.phone || "Not Provided"}
 - Project Type: ${payload.projectType}
 - Budget Range: ${payload.budgetRange || "To be discussed / Not specified"}
 
@@ -229,6 +231,10 @@ Portfolio Contact System – Yoganathan A
           <tr>
             <td class="label">Email Address:</td>
             <td class="value"><a href="mailto:${payload.email}" style="color: #2563eb; text-decoration: none;">${payload.email}</a></td>
+          </tr>
+          <tr>
+            <td class="label">Phone / WhatsApp:</td>
+            <td class="value">${payload.phone || "Not Provided"}</td>
           </tr>
           <tr>
             <td class="label">Project Type:</td>

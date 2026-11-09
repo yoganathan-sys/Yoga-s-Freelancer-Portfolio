@@ -57,6 +57,7 @@ export interface ContactMessage {
   id: string;
   full_name: string;
   email: string;
+  phone?: string | null;
   project_type: string;
   budget_range?: string | null;
   project_description: string;

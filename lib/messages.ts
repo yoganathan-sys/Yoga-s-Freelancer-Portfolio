@@ -35,6 +35,7 @@ let fallbackMessages: ContactMessage[] = [
 export async function submitContactMessage(params: {
   fullName: string;
   email: string;
+  phone?: string | null;
   projectType: string;
   budgetRange?: string | null;
   projectDescription: string;
@@ -57,6 +58,7 @@ export async function submitContactMessage(params: {
           {
             full_name: params.fullName,
             email: params.email,
+            phone: params.phone || null,
             project_type: params.projectType,
             budget_range: params.budgetRange || null,
             project_description: params.projectDescription,
@@ -73,6 +75,7 @@ export async function submitContactMessage(params: {
           id: messageId,
           full_name: params.fullName,
           email: params.email,
+          phone: params.phone || null,
           project_type: params.projectType,
           budget_range: params.budgetRange || null,
           project_description: params.projectDescription,
@@ -89,6 +92,7 @@ export async function submitContactMessage(params: {
         id: messageId,
         full_name: params.fullName,
         email: params.email,
+        phone: params.phone || null,
         project_type: params.projectType,
         budget_range: params.budgetRange || null,
         project_description: params.projectDescription,
@@ -103,6 +107,7 @@ export async function submitContactMessage(params: {
       inquiryId: messageId,
       fullName: params.fullName,
       email: params.email,
+      phone: params.phone,
       projectType: params.projectType,
       budgetRange: params.budgetRange,
       projectDescription: params.projectDescription,
@@ -180,6 +185,7 @@ export async function retryNotificationEmail(
       inquiryId: message.id,
       fullName: message.full_name,
       email: message.email,
+      phone: message.phone || null,
       projectType: message.project_type,
       budgetRange: message.budget_range,
       projectDescription: message.project_description,

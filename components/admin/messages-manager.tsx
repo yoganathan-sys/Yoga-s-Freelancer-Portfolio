@@ -146,12 +146,25 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
                   <h3 className="text-base font-bold text-white font-heading">
                     {msg.full_name}
                   </h3>
-                  <a
-                    href={`mailto:${msg.email}`}
-                    className="text-xs text-blue-400 hover:underline font-mono"
-                  >
-                    {msg.email}
-                  </a>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href={`mailto:${msg.email}`}
+                      className="text-xs text-blue-400 hover:underline font-mono"
+                    >
+                      {msg.email}
+                    </a>
+                    {msg.phone && (
+                      <>
+                        <span className="text-zinc-600 text-xs">•</span>
+                        <a
+                          href={`tel:${msg.phone}`}
+                          className="text-xs text-teal-400 hover:underline font-mono"
+                        >
+                          {msg.phone}
+                        </a>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -194,7 +207,7 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
               </div>
             </div>
 
-            {/* Scope / Budget tags */}
+            {/* Scope / Budget / Phone tags */}
             <div className="flex flex-wrap gap-2 text-xs font-mono">
               <span className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-blue-400">
                 Type: {msg.project_type}
@@ -202,6 +215,11 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
               {msg.budget_range && (
                 <span className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-emerald-400">
                   Budget: {msg.budget_range}
+                </span>
+              )}
+              {msg.phone && (
+                <span className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-teal-400">
+                  Phone: {msg.phone}
                 </span>
               )}
             </div>
@@ -294,6 +312,17 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
                   <Mail className="w-3.5 h-3.5" />
                   <span>Reply via Email</span>
                 </a>
+
+                {msg.phone && (
+                  <a
+                    href={`https://wa.me/${msg.phone.replace(/[^0-9]/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold font-mono transition-colors inline-flex items-center gap-1.5"
+                  >
+                    <span>WhatsApp Client</span>
+                  </a>
+                )}
 
                 <Button
                   onClick={() => setDeleteId(msg.id)}

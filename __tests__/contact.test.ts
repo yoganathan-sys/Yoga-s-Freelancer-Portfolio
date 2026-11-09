@@ -1,5 +1,10 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { submitContactAction } from "@/actions/contact";
+import {
+  buildWhatsAppMessage,
+  buildWhatsAppUrl,
+  WHATSAPP_DESTINATION_NUMBER,
+} from "@/lib/whatsapp";
 import { retryNotificationEmailAction } from "@/actions/admin";
 import { sendContactNotificationEmail } from "@/lib/email";
 import { submitContactMessage } from "@/lib/messages";
@@ -41,14 +46,15 @@ describe("Contact Server Action & Validation", () => {
     // Honeypot silently succeeds to avoid tipping off bots
     expect(res.success).toBe(true);
     expect(res.message).toBe(
-      "Thank you! Your project enquiry has been submitted successfully. I'll get back to you soon."
+      "Thank you! Your project enquiry has been received successfully."
     );
   });
 
-  it("should accept valid submission data and return exact success message", async () => {
+  it("should accept valid submission data, return success message and generate WhatsApp link", async () => {
     const formData = new FormData();
     formData.append("fullName", "Alice Johnson");
     formData.append("email", "alice@enterprise.com");
+    formData.append("phone", "+91 98765 43210");
     formData.append("projectType", "Full-Stack Application");
     formData.append("budgetRange", "$5,000 - $10,000");
     formData.append(
@@ -59,19 +65,79 @@ describe("Contact Server Action & Validation", () => {
     const res = await submitContactAction(null, formData);
     expect(res.success).toBe(true);
     expect(res.message).toBe(
-      "Thank you! Your project enquiry has been submitted successfully. I'll get back to you soon."
+      "Thank you! Your project enquiry has been received successfully."
     );
     expect(res.messageId).toBeDefined();
+    expect(res.whatsAppUrl).toBeDefined();
+    expect(res.whatsAppUrl).toContain("https://wa.me/919025281363?text=");
+
+    const decoded = decodeURIComponent(res.whatsAppUrl!);
+    expect(decoded).toContain("NEW CLIENT PROJECT ENQUIRY");
+    expect(decoded).toContain("Alice Johnson");
+    expect(decoded).toContain("alice@enterprise.com");
+    expect(decoded).toContain("+91 98765 43210");
+    expect(decoded).toContain("Full-Stack Application");
+    expect(decoded).toContain("$5,000 - $10,000");
+    expect(decoded).toContain("Yoganathan's Freelancer Portfolio");
+  });
+});
+
+describe("WhatsApp Message Formatter", () => {
+  it("should format all fields according to specification", () => {
+    const formatted = buildWhatsAppMessage({
+      fullName: "David Miller",
+      email: "david@logistics.com",
+      phone: "+91 90252 81363",
+      projectType: "Mobile Application",
+      budgetRange: "$10,000+",
+      projectDescription: "Need a full fleet tracking app in React Native.",
+    });
+
+    expect(formatted).toContain("NEW CLIENT PROJECT ENQUIRY");
+    expect(formatted).toContain("Hello Yoganathan!");
+    expect(formatted).toContain("CUSTOMER DETAILS");
+    expect(formatted).toContain("Full Name: David Miller");
+    expect(formatted).toContain("Email Address: david@logistics.com");
+    expect(formatted).toContain("Phone / WhatsApp: +91 90252 81363");
+    expect(formatted).toContain("PROJECT INFORMATION");
+    expect(formatted).toContain("Project Type: Mobile Application");
+    expect(formatted).toContain("Budget Range: $10,000+");
+    expect(formatted).toContain("PROJECT DESCRIPTION\nNeed a full fleet tracking app in React Native.");
+    expect(formatted).toContain("SOURCE\nYoganathan's Freelancer Portfolio");
+  });
+
+  it("should handle optional fields when phone or budget are omitted", () => {
+    const formatted = buildWhatsAppMessage({
+      fullName: "Sarah Connor",
+      email: "sarah@future.io",
+      projectType: "Web Application",
+      projectDescription: "AI surveillance portal.",
+    });
+
+    expect(formatted).toContain("Phone / WhatsApp: Not Provided");
+    expect(formatted).toContain("Budget Range: Not Specified");
+  });
+
+  it("should build correct wa.me link with destination number", () => {
+    expect(WHATSAPP_DESTINATION_NUMBER).toBe("919025281363");
+    const url = buildWhatsAppUrl({
+      fullName: "Test User",
+      email: "test@user.com",
+      projectType: "Website Development",
+      projectDescription: "Simple business landing page.",
+    });
+
+    expect(url.startsWith("https://wa.me/919025281363?text=")).toBe(true);
   });
 });
 
 describe("Email Notification Service & Retry Pipeline", () => {
   it("should handle missing RESEND_API_KEY gracefully without throwing", async () => {
-    // When RESEND_API_KEY is not configured or placeholder
     const res = await sendContactNotificationEmail({
       inquiryId: "test-id-123",
       fullName: "Test Customer",
       email: "customer@test.com",
+      phone: "+91 90000 11111",
       projectType: "Web Application",
       budgetRange: "$3,000 - $5,000",
       projectDescription: "Need a full ecommerce site.",
@@ -87,6 +153,7 @@ describe("Email Notification Service & Retry Pipeline", () => {
     const submission = await submitContactMessage({
       fullName: "Test Client",
       email: "client@test.com",
+      phone: "+91 91234 56789",
       projectType: "Mobile Application",
       budgetRange: "$10,000+",
       projectDescription: "Need high-performance React Native mobile app.",
@@ -94,7 +161,6 @@ describe("Email Notification Service & Retry Pipeline", () => {
 
     expect(submission.success).toBe(true);
     expect(submission.messageId).toBeDefined();
-    expect(submission.message).toContain("submitted successfully");
   });
 
   it("should allow retrying email notification via admin action", async () => {
@@ -106,7 +172,6 @@ describe("Email Notification Service & Retry Pipeline", () => {
     });
 
     const retryRes = await retryNotificationEmailAction(submission.messageId!);
-    // Retrying without configured key should report descriptive error rather than throwing
     expect(retryRes.success).toBe(false);
     expect(retryRes.error).toContain("RESEND_API_KEY");
   });
