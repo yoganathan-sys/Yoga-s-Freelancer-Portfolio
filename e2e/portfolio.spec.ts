@@ -171,10 +171,11 @@ test.describe("Portfolio Homepage User Journeys", () => {
     await expect(waBtn).toBeVisible();
     await expect(waBtn).toHaveAttribute("href", /wa\.me\/919025281363/);
 
-    // Verify Google Maps location link
-    const locationCard = contactSection.locator('a[href*="maps.app.goo.gl"]');
+    // Verify Location Card is an accessible interactive element
+    const locationCard = contactSection.locator('[data-testid="location-card"]');
     await expect(locationCard).toBeVisible();
-    await expect(locationCard).toHaveAttribute("href", "https://maps.app.goo.gl/tpTi2YUs5Q9t15F67");
+    await expect(locationCard).toHaveAttribute("type", "button");
+    await expect(locationCard).toHaveAttribute("aria-label", /View location on Google Maps/);
 
     // Verify Social Profiles & Repositories
     const githubBtn = contactSection.getByRole("link", { name: /GitHub/i });
@@ -250,5 +251,123 @@ test.describe("Portfolio Homepage User Journeys", () => {
     // Verify email status badges are rendered (e.g. Email Sent, Email Failed, or Email Pending)
     const emailBadge = page.getByText(/Email (Sent|Failed|Pending)/i).first();
     await expect(emailBadge).toBeVisible();
+  });
+
+  test("should handle location card click and open Google Maps with geolocation", async ({ context, page }) => {
+    await context.grantPermissions(["geolocation"]);
+    await context.setGeolocation({ latitude: 13.0827, longitude: 80.2707 });
+
+    await page.goto("/#contact");
+    const contactSection = page.locator("#contact");
+    const locationCard = contactSection.locator('[data-testid="location-card"]');
+    await expect(locationCard).toBeVisible();
+
+    const [newPage] = await Promise.all([
+      context.waitForEvent("page"),
+      locationCard.click(),
+    ]);
+
+    await newPage.waitForURL(/google\.com\/maps/, { timeout: 10000 });
+    expect(newPage.url()).toContain("13.0827");
+    expect(newPage.url()).toContain("80.2707");
+    await newPage.close();
+  });
+
+  test("should handle geolocation permission denial and show fallback Google Maps link", async ({ context, page }) => {
+    await context.clearPermissions();
+
+    await page.goto("/#contact");
+    const contactSection = page.locator("#contact");
+
+    // Mock geolocation to simulate immediate permission denial
+    await page.addInitScript(() => {
+      // @ts-ignore
+      navigator.geolocation.getCurrentPosition = (success, error) => {
+        if (error) {
+          // @ts-ignore
+          error({
+            code: 1,
+            message: "User denied Geolocation",
+            PERMISSION_DENIED: 1,
+            POSITION_UNAVAILABLE: 2,
+            TIMEOUT: 3,
+          });
+        }
+      };
+    });
+
+    await page.reload();
+    const locationCard = contactSection.locator('[data-testid="location-card"]');
+    await locationCard.click();
+
+    // Verify permission denied message appears
+    await expect(
+      page.getByText("Location permission denied. Opening the saved Google Maps location instead.")
+    ).toBeVisible({ timeout: 5000 });
+
+    // Verify working fallback button
+    const fallbackLink = page.getByRole("link", { name: "Open saved Google Maps location" });
+    await expect(fallbackLink).toBeVisible();
+    await expect(fallbackLink).toHaveAttribute("href", "https://maps.app.goo.gl/tpTi2YUs5Q9t15F67");
+  });
+
+  test("should handle position unavailable error with descriptive feedback", async ({ page }) => {
+    await page.goto("/#contact");
+    const contactSection = page.locator("#contact");
+
+    // Mock geolocation to simulate position unavailable (code: 2)
+    await page.addInitScript(() => {
+      // @ts-ignore
+      navigator.geolocation.getCurrentPosition = (success, error) => {
+        if (error) {
+          // @ts-ignore
+          error({
+            code: 2,
+            message: "Position unavailable",
+            PERMISSION_DENIED: 1,
+            POSITION_UNAVAILABLE: 2,
+            TIMEOUT: 3,
+          });
+        }
+      };
+    });
+
+    await page.reload();
+    const locationCard = contactSection.locator('[data-testid="location-card"]');
+    await locationCard.click();
+
+    await expect(
+      page.getByText("Unable to detect your location. Please try again.")
+    ).toBeVisible({ timeout: 5000 });
+  });
+
+  test("should handle geolocation request timeout error with descriptive feedback", async ({ page }) => {
+    await page.goto("/#contact");
+    const contactSection = page.locator("#contact");
+
+    // Mock geolocation to simulate timeout (code: 3)
+    await page.addInitScript(() => {
+      // @ts-ignore
+      navigator.geolocation.getCurrentPosition = (success, error) => {
+        if (error) {
+          // @ts-ignore
+          error({
+            code: 3,
+            message: "Timeout expired",
+            PERMISSION_DENIED: 1,
+            POSITION_UNAVAILABLE: 2,
+            TIMEOUT: 3,
+          });
+        }
+      };
+    });
+
+    await page.reload();
+    const locationCard = contactSection.locator('[data-testid="location-card"]');
+    await locationCard.click();
+
+    await expect(
+      page.getByText("Location request timed out. Please try again.")
+    ).toBeVisible({ timeout: 5000 });
   });
 });

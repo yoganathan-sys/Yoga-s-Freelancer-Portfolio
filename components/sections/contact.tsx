@@ -9,7 +9,6 @@ import {
   Mail,
   Phone,
   Clock,
-  MapPin,
   Send,
   Loader2,
   CheckCircle2,
@@ -27,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
+import { LocationCard } from "@/components/contact/location-card";
 
 const contactFormSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters."),
@@ -231,28 +231,8 @@ export function ContactSection() {
                 </div>
               </div>
 
-              {/* Card 5 — Location (Clickable Google Maps Link) */}
-              <a
-                href={profileConfig.contact.locationMapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-purple-500 hover:shadow-lg transition-all duration-200 shadow-sm"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-950/60 dark:text-purple-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-0.5">
-                      LOCATION
-                    </span>
-                    <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                      {profileConfig.contact.location}
-                    </span>
-                  </div>
-                </div>
-                <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-purple-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
-              </a>
+              {/* Card 5 — Location with Dynamic Geolocation & Google Maps */}
+              <LocationCard />
             </div>
 
             {/* Prominent WhatsApp Contact Action Button */}
