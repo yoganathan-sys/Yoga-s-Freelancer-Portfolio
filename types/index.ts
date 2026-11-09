@@ -51,6 +51,8 @@ export type ProjectInput = Omit<Project, "id" | "created_at" | "updated_at">;
 
 export type InquiryStatus = "unread" | "read" | "replied" | "archived";
 
+export type NotificationStatus = "pending" | "sent" | "failed";
+
 export interface ContactMessage {
   id: string;
   full_name: string;
@@ -59,6 +61,8 @@ export interface ContactMessage {
   budget_range?: string | null;
   project_description: string;
   status: InquiryStatus;
+  notification_status?: NotificationStatus;
+  notification_error?: string | null;
   created_at: string;
 }
 

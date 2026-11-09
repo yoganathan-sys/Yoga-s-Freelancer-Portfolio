@@ -9,11 +9,15 @@ import {
   Archive,
   Eye,
   Filter,
+  AlertCircle,
+  RotateCw,
+  Loader2,
 } from "lucide-react";
 import { ContactMessage, InquiryStatus } from "@/types";
 import {
   updateMessageStatusAction,
   deleteMessageAction,
+  retryNotificationEmailAction,
 } from "@/actions/admin";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -26,6 +30,8 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
   const [messages, setMessages] = useState<ContactMessage[]>(initialMessages);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [retryingId, setRetryingId] = useState<string | null>(null);
+  const [retryFeedback, setRetryFeedback] = useState<{ id: string; success: boolean; message: string } | null>(null);
 
   const filtered =
     statusFilter === "all"
@@ -43,6 +49,53 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
     setMessages((prev) => prev.filter((m) => m.id !== id));
     setDeleteId(null);
     await deleteMessageAction(id);
+  };
+
+  const handleRetryEmail = async (id: string) => {
+    setRetryingId(id);
+    setRetryFeedback(null);
+    try {
+      const res = await retryNotificationEmailAction(id);
+      if (res.success) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === id
+              ? { ...m, notification_status: "sent", notification_error: null }
+              : m
+          )
+        );
+        setRetryFeedback({
+          id,
+          success: true,
+          message: "Email notification dispatched successfully to yoganathan162008@gmail.com!",
+        });
+      } else {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === id
+              ? {
+                  ...m,
+                  notification_status: "failed",
+                  notification_error: res.error || "Resend notification failed",
+                }
+              : m
+          )
+        );
+        setRetryFeedback({
+          id,
+          success: false,
+          message: res.error || "Retry failed. Verify RESEND_API_KEY in .env.local",
+        });
+      }
+    } catch (err: any) {
+      setRetryFeedback({
+        id,
+        success: false,
+        message: err?.message || "Failed to retry email dispatch.",
+      });
+    } finally {
+      setRetryingId(null);
+    }
   };
 
   return (
@@ -102,7 +155,7 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-mono text-zinc-500">
                   {formatDate(msg.created_at)}
                 </span>
@@ -117,6 +170,27 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
                 >
                   {msg.status}
                 </span>
+
+                {/* Resend Email Notification Status Badge */}
+                {msg.notification_status === "sent" ? (
+                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                    <CheckCircle className="w-3 h-3 text-emerald-400" />
+                    <span>Email Sent</span>
+                  </span>
+                ) : msg.notification_status === "failed" ? (
+                  <span
+                    className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-red-500/15 text-red-300 border border-red-500/30 flex items-center gap-1"
+                    title={msg.notification_error || "Email delivery failed"}
+                  >
+                    <AlertCircle className="w-3 h-3 text-red-400" />
+                    <span>Email Failed</span>
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-amber-400" />
+                    <span>Email Pending</span>
+                  </span>
+                )}
               </div>
             </div>
 
@@ -137,7 +211,35 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
               {msg.project_description}
             </p>
 
-            {/* Status change actions */}
+            {/* Notification Delivery Error / Feedback */}
+            {msg.notification_status === "failed" && msg.notification_error && (
+              <div className="flex items-start gap-2 p-3 rounded-xl bg-red-950/30 border border-red-900/40 text-red-300 text-xs font-mono">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                <div>
+                  <span className="font-semibold text-red-200">Resend Delivery Error: </span>
+                  <span>{msg.notification_error}</span>
+                </div>
+              </div>
+            )}
+
+            {retryFeedback && retryFeedback.id === msg.id && (
+              <div
+                className={`flex items-start gap-2 p-3 rounded-xl text-xs font-mono ${
+                  retryFeedback.success
+                    ? "bg-emerald-950/30 border border-emerald-900/40 text-emerald-300"
+                    : "bg-red-950/30 border border-red-900/40 text-red-300"
+                }`}
+              >
+                {retryFeedback.success ? (
+                  <CheckCircle className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                )}
+                <span>{retryFeedback.message}</span>
+              </div>
+            )}
+
+            {/* Status change actions & Email actions */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono text-zinc-500">Mark as:</span>
@@ -161,12 +263,36 @@ export function MessagesManager({ initialMessages }: MessagesManagerProps) {
                 </button>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {msg.notification_status !== "sent" && (
+                  <Button
+                    onClick={() => handleRetryEmail(msg.id)}
+                    disabled={retryingId === msg.id}
+                    variant="outline"
+                    size="sm"
+                    className="h-8 rounded-xl border-amber-500/40 text-amber-300 hover:bg-amber-500/10 text-xs font-mono gap-1.5"
+                    title="Retry dispatching notification email via Resend"
+                  >
+                    {retryingId === msg.id ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Retrying...</span>
+                      </>
+                    ) : (
+                      <>
+                        <RotateCw className="w-3.5 h-3.5" />
+                        <span>Retry Email</span>
+                      </>
+                    )}
+                  </Button>
+                )}
+
                 <a
                   href={`mailto:${msg.email}?subject=Re: Your Project Inquiry - ${msg.project_type}`}
-                  className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold font-mono transition-colors"
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold font-mono transition-colors inline-flex items-center gap-1.5"
                 >
-                  Reply via Email
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Reply via Email</span>
                 </a>
 
                 <Button

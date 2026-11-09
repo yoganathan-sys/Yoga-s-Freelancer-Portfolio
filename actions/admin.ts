@@ -10,8 +10,17 @@ import {
 import {
   updateMessageStatus,
   deleteContactMessageRecord,
+  retryNotificationEmail,
 } from "@/lib/messages";
 import { InquiryStatus, ProjectCategory } from "@/types";
+
+function safeRevalidate(path: string) {
+  try {
+    revalidatePath(path);
+  } catch {
+    // In unit testing environments (e.g. Vitest), Next.js static generation store is not present
+  }
+}
 
 export async function loginAdminAction(prevState: any, formData: FormData) {
   const email = formData.get("email") as string;
@@ -42,7 +51,7 @@ export async function loginAdminAction(prevState: any, formData: FormData) {
     return { success: false, error: error.message };
   }
 
-  revalidatePath("/admin");
+  safeRevalidate("/admin");
   return { success: true };
 }
 
@@ -51,7 +60,7 @@ export async function logoutAdminAction() {
   if (supabase) {
     await supabase.auth.signOut();
   }
-  revalidatePath("/admin");
+  safeRevalidate("/admin");
   return { success: true };
 }
 
@@ -91,9 +100,9 @@ export async function saveProjectAction(prevState: any, formData: FormData): Pro
         featured,
         published,
       });
-      revalidatePath("/admin/projects");
-      revalidatePath("/projects/" + slug);
-      revalidatePath("/");
+      safeRevalidate("/admin/projects");
+      safeRevalidate("/projects/" + slug);
+      safeRevalidate("/");
       return { success: res.success, error: res.error };
     } else {
       const res = await createProjectRecord({
@@ -109,8 +118,8 @@ export async function saveProjectAction(prevState: any, formData: FormData): Pro
         featured,
         published,
       });
-      revalidatePath("/admin/projects");
-      revalidatePath("/");
+      safeRevalidate("/admin/projects");
+      safeRevalidate("/");
       return { success: res.success, data: res.data, error: res.error };
     }
   } catch (err: any) {
@@ -120,28 +129,35 @@ export async function saveProjectAction(prevState: any, formData: FormData): Pro
 
 export async function deleteProjectAction(id: string) {
   const res = await deleteProjectRecord(id);
-  revalidatePath("/admin/projects");
-  revalidatePath("/");
+  safeRevalidate("/admin/projects");
+  safeRevalidate("/");
   return res;
 }
 
 export async function togglePublishAction(id: string, published: boolean) {
   const res = await updateProjectRecord(id, { published });
-  revalidatePath("/admin/projects");
-  revalidatePath("/");
+  safeRevalidate("/admin/projects");
+  safeRevalidate("/");
   return res;
 }
 
 export async function updateMessageStatusAction(id: string, status: InquiryStatus) {
   const res = await updateMessageStatus(id, status);
-  revalidatePath("/admin/messages");
-  revalidatePath("/admin");
+  safeRevalidate("/admin/messages");
+  safeRevalidate("/admin");
   return res;
 }
 
 export async function deleteMessageAction(id: string) {
   const res = await deleteContactMessageRecord(id);
-  revalidatePath("/admin/messages");
-  revalidatePath("/admin");
+  safeRevalidate("/admin/messages");
+  safeRevalidate("/admin");
+  return res;
+}
+
+export async function retryNotificationEmailAction(id: string) {
+  const res = await retryNotificationEmail(id);
+  safeRevalidate("/admin/messages");
+  safeRevalidate("/admin");
   return res;
 }

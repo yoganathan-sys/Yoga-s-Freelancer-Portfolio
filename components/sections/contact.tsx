@@ -110,7 +110,7 @@ export function ContactSection() {
     } catch {
       setSubmitStatus({
         success: false,
-        message: "Failed to submit form. Please check your network or email directly.",
+        message: "Unable to submit your enquiry. Please try again or contact me directly through WhatsApp.",
       });
     } finally {
       setIsSubmitting(false);
@@ -461,7 +461,7 @@ export function ContactSection() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Submitting Inquiry...</span>
+                        <span>Sending your message...</span>
                       </>
                     ) : (
                       <>

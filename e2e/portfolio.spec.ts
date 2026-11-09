@@ -186,11 +186,27 @@ test.describe("Portfolio Homepage User Journeys", () => {
 
     // Verify submission confirmation
     await expect(page.getByText("Inquiry Received!")).toBeVisible({ timeout: 10000 });
+    await expect(
+      page.getByText("Thank you! Your project enquiry has been submitted successfully. I'll get back to you soon.")
+    ).toBeVisible();
   });
 
-  test("should render the admin login page", async ({ page }) => {
+  test("should render the admin login page and allow inspecting client inquiries with email status badges", async ({ page }) => {
     await page.goto("/admin/login");
     await expect(page.getByRole("heading", { name: "Admin Authentication" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Sign In to Dashboard" })).toBeVisible();
+
+    // Login using preview admin credentials
+    await page.fill('input[type="email"]', "admin@example.com");
+    await page.fill('input[type="password"]', "admin123");
+    await page.getByRole("button", { name: "Sign In to Dashboard" }).click();
+
+    // Navigate to /admin/messages
+    await page.goto("/admin/messages");
+    await expect(page.getByRole("heading", { name: "Client Inquiries" })).toBeVisible({ timeout: 10000 });
+
+    // Verify email status badges are rendered (e.g. Email Sent, Email Failed, or Email Pending)
+    const emailBadge = page.getByText(/Email (Sent|Failed|Pending)/i).first();
+    await expect(emailBadge).toBeVisible();
   });
 });
