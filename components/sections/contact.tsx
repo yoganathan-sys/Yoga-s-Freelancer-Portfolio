@@ -16,6 +16,7 @@ import {
   AlertCircle,
   Github,
   Linkedin,
+  Youtube,
   ArrowUpRight,
   MessageSquare,
   Sparkles,
@@ -297,6 +298,21 @@ export function ContactSection() {
                 >
                   <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span>LinkedIn</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                </a>
+
+                <a
+                  href={profileConfig.socialLinks.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube Channel – Yoga's Study Zone"
+                  className="px-5 py-3 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center gap-2.5 text-xs font-bold hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] transition-all shadow-sm group"
+                >
+                  <Youtube className="w-4 h-4 text-red-600 group-hover:text-white group-hover:scale-110 transition-transform" />
+                  <span>YouTube Channel</span>
+                  <span className="hidden sm:inline font-mono font-normal opacity-70 group-hover:opacity-100">
+                    (Yoga&apos;s Study Zone)
+                  </span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </a>
               </div>

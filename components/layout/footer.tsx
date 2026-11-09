@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUp, Github, Linkedin, Mail, Phone, Download } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Youtube, Mail, Phone, Download } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profileConfig } from "@/data/profile";
 
@@ -123,8 +123,20 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-[#0077b5] hover:bg-[#0077b5] flex items-center justify-center transition-all"
                   aria-label="LinkedIn"
+                  title="LinkedIn Profile"
                 >
                   <Linkedin className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={profileConfig.socialLinks.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-[#FF0000] hover:bg-[#FF0000] flex items-center justify-center transition-all"
+                  aria-label="YouTube Channel"
+                  title="YouTube Channel (Yoga's Study Zone)"
+                >
+                  <Youtube className="w-4 h-4" />
                 </a>
 
                 <a

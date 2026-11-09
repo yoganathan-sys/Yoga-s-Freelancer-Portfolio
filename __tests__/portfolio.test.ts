@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { profileConfig } from "@/data/profile";
+import { profileConfig, socialLinks, youtubeChannelConfig } from "@/data/profile";
 import { servicesData } from "@/data/services";
 import { skillsData, skillCategories } from "@/data/skills";
 import { initialProjects } from "@/data/projects";
@@ -18,6 +18,11 @@ describe("Profile Configuration", () => {
     expect(profileConfig.contact.locationMapUrl).toBe("https://maps.app.goo.gl/tpTi2YUs5Q9t15F67");
     expect(profileConfig.socialLinks.github).toBe("https://github.com/yoganathan-sys");
     expect(profileConfig.socialLinks.linkedin).toBe("https://www.linkedin.com/in/yoganathana");
+    expect(profileConfig.socialLinks.youtube).toBe("https://www.youtube.com/@yogasstudyzone");
+    expect(socialLinks.youtube).toBe("https://www.youtube.com/@yogasstudyzone");
+    expect(youtubeChannelConfig.name).toBe("Yoga's Study Zone");
+    expect(youtubeChannelConfig.url).toBe("https://www.youtube.com/@yogasstudyzone");
+    expect(youtubeChannelConfig.sectionTitle).toBe("Beyond Development — Sharing Knowledge");
   });
 
   it("should have resumeUrl configured", () => {

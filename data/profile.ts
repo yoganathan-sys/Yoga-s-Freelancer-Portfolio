@@ -22,6 +22,7 @@ export interface ProfileConfig {
   socialLinks: {
     github: string;
     linkedin: string;
+    youtube: string;
     email: string;
     phone: string;
     whatsapp: string;
@@ -35,6 +36,35 @@ const WHATSAPP_NUMBER = "919025281363";
 const WHATSAPP_PREFILLED_MESSAGE = encodeURIComponent(
   "Hello Yoganathan! I visited your portfolio and would like to discuss a development project."
 );
+
+/**
+ * Centralized social media & external link configuration
+ * Use throughout components to maintain consistency and single source of truth.
+ */
+export const socialLinks = {
+  github: "https://github.com/yoganathan-sys",
+  linkedin: "https://www.linkedin.com/in/yoganathana",
+  youtube: "https://www.youtube.com/@yogasstudyzone",
+  email: "mailto:yoganathan162008@gmail.com",
+  phone: "tel:+919025281363",
+  whatsapp: "https://wa.me/919025281363",
+  whatsappPrefilled: `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_PREFILLED_MESSAGE}`,
+};
+
+/**
+ * Dedicated YouTube channel details
+ */
+export const youtubeChannelConfig = {
+  name: "Yoga's Study Zone",
+  url: "https://www.youtube.com/@yogasstudyzone",
+  platform: "YouTube",
+  handle: "@yogasstudyzone",
+  aboutText:
+    "Alongside software development, I create educational technology content through my YouTube channel, Yoga's Study Zone, where I share programming concepts, web development tutorials and learning resources.",
+  sectionTitle: "Beyond Development — Sharing Knowledge",
+  sectionDescription:
+    "Technology becomes more powerful when knowledge is shared. Through Yoga's Study Zone, I create educational content covering programming, web development and technology concepts to help learners grow.",
+};
 
 export const profileConfig: ProfileConfig = {
   name: "YOGANATHAN A",
@@ -57,17 +87,18 @@ export const profileConfig: ProfileConfig = {
     phone: "+91 90252 81363",
     phoneRaw: "+919025281363",
     whatsapp: "+91 90252 81363",
-    whatsappUrl: `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_PREFILLED_MESSAGE}`,
+    whatsappUrl: socialLinks.whatsappPrefilled,
     location: "Remote / Available Worldwide",
     locationMapUrl: "https://maps.app.goo.gl/tpTi2YUs5Q9t15F67",
     availability: "Available for Freelance Projects & Contracts",
   },
   socialLinks: {
-    github: "https://github.com/yoganathan-sys",
-    linkedin: "https://www.linkedin.com/in/yoganathana",
-    email: "mailto:yoganathan162008@gmail.com",
-    phone: "tel:+919025281363",
-    whatsapp: `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_PREFILLED_MESSAGE}`,
+    github: socialLinks.github,
+    linkedin: socialLinks.linkedin,
+    youtube: socialLinks.youtube,
+    email: socialLinks.email,
+    phone: socialLinks.phone,
+    whatsapp: socialLinks.whatsappPrefilled,
   },
   resumeUrl: "/resume.pdf",
   avatarUrl: "/images/profile-photo.png",

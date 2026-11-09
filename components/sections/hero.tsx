@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowDown, Sparkles, FolderGit2 } from "lucide-react";
+import { Github, Linkedin, Youtube, Mail, ArrowDown, Sparkles, FolderGit2 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profileConfig } from "@/data/profile";
 import { Button } from "@/components/ui/button";
@@ -111,15 +111,28 @@ export function HeroSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
+              title="LinkedIn Profile"
               className="w-10 h-10 rounded-full bg-black/10 hover:bg-[#0077b5] text-zinc-900 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm"
             >
               <Linkedin className="w-4 h-4" />
             </a>
 
             <a
+              href={profileConfig.socialLinks.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit My YouTube Channel"
+              title="Visit My YouTube Channel"
+              className="w-10 h-10 rounded-full bg-black/10 hover:bg-[#FF0000] text-zinc-900 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm"
+            >
+              <Youtube className="w-4 h-4" />
+            </a>
+
+            <a
               href={profileConfig.socialLinks.email}
               aria-label="Email Me Directly"
-              className="w-10 h-10 rounded-full bg-black/10 hover:bg-red-600 text-zinc-900 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm"
+              title="Email Me Directly"
+              className="w-10 h-10 rounded-full bg-black/10 hover:bg-zinc-800 text-zinc-900 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm"
             >
               <Mail className="w-4 h-4" />
             </a>

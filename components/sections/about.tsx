@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { CheckCircle2, Terminal, Code2, ShieldCheck, Sparkles, FileText } from "lucide-react";
+import { CheckCircle2, Terminal, Code2, ShieldCheck, Sparkles, FileText, Youtube } from "lucide-react";
 import { profileConfig } from "@/data/profile";
 import { Button } from "@/components/ui/button";
 import { TechGeometricCanvas } from "@/components/3d/tech-geometric";
@@ -98,6 +98,9 @@ export function AboutSection() {
               <p>
                 {profileConfig.fullBio.paragraph3}
               </p>
+              <p className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 text-sm sm:text-base text-zinc-700 dark:text-zinc-300">
+                Alongside software development, I create educational technology content through my YouTube channel, <strong className="font-semibold text-zinc-900 dark:text-white">Yoga&apos;s Study Zone</strong>, where I share programming concepts, web development tutorials and learning resources.
+              </p>
             </div>
 
             {/* Core Development Focus Checklist */}
@@ -127,7 +130,7 @@ export function AboutSection() {
               </div>
             </div>
 
-            {/* Resume Integration Action Buttons */}
+            {/* Resume & YouTube Integration Action Buttons */}
             <div className="pt-6 flex flex-wrap items-center gap-4">
               <ResumeDownloadButton
                 variant="primary"
@@ -145,6 +148,23 @@ export function AboutSection() {
                   <FileText className="w-4 h-4" />
                   <span>View Resume</span>
                 </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="font-semibold tracking-wide rounded-full border-zinc-300 dark:border-zinc-700 hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 hover:scale-105 transition-all gap-2"
+              >
+                <a
+                  href={profileConfig.socialLinks.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit My YouTube Channel"
+                >
+                  <Youtube className="w-4 h-4 text-red-600" />
+                  <span>Visit My YouTube Channel</span>
+                </a>
               </Button>
 
               <Button

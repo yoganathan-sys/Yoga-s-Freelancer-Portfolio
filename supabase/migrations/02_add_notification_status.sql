@@ -21,3 +21,4 @@ BEGIN
     ADD COLUMN notification_error TEXT;
   END IF;
 END $$;
+

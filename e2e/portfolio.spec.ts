@@ -12,6 +12,12 @@ test.describe("Portfolio Homepage User Journeys", () => {
 
     // Verify CONTACT ME button
     await expect(page.getByRole("link", { name: "CONTACT ME" })).toBeVisible();
+
+    // Verify YouTube social link in Hero
+    const heroYouTubeBtn = page.locator('#home a[href="https://www.youtube.com/@yogasstudyzone"]');
+    await expect(heroYouTubeBtn).toBeVisible();
+    await expect(heroYouTubeBtn).toHaveAttribute("target", "_blank");
+    await expect(heroYouTubeBtn).toHaveAttribute("rel", "noopener noreferrer");
   });
 
   test("should have functional navigation links including Resume", async ({ page }) => {
@@ -34,6 +40,12 @@ test.describe("Portfolio Homepage User Journeys", () => {
     const downloadBtn = aboutSection.getByRole("link", { name: /Download Resume/i });
     await expect(downloadBtn).toBeVisible();
     await expect(downloadBtn).toHaveAttribute("href", "/resume.pdf");
+
+    // Verify YouTube channel link button in About section
+    const aboutYouTubeBtn = aboutSection.getByRole("link", { name: /Visit My YouTube Channel/i });
+    await expect(aboutYouTubeBtn).toBeVisible();
+    await expect(aboutYouTubeBtn).toHaveAttribute("href", "https://www.youtube.com/@yogasstudyzone");
+    await expect(aboutYouTubeBtn).toHaveAttribute("target", "_blank");
 
     const viewResumeBtn = aboutSection.getByRole("link", { name: /View Resume/i });
     await expect(viewResumeBtn).toBeVisible();
@@ -167,6 +179,36 @@ test.describe("Portfolio Homepage User Journeys", () => {
     // Verify Social Profiles & Repositories
     const githubBtn = contactSection.getByRole("link", { name: /GitHub/i });
     await expect(githubBtn).toHaveAttribute("href", "https://github.com/yoganathan-sys");
+
+    const contactYouTubeBtn = contactSection.getByRole("link", { name: /YouTube Channel/i });
+    await expect(contactYouTubeBtn).toBeVisible();
+    await expect(contactYouTubeBtn).toHaveAttribute("href", "https://www.youtube.com/@yogasstudyzone");
+    await expect(contactYouTubeBtn).toHaveAttribute("target", "_blank");
+
+    // Verify Footer YouTube link
+    const footerYouTubeBtn = page.locator('footer a[aria-label="YouTube Channel"]');
+    await expect(footerYouTubeBtn).toBeVisible();
+    await expect(footerYouTubeBtn).toHaveAttribute("href", "https://www.youtube.com/@yogasstudyzone");
+  });
+
+  test("should render the dedicated YouTube content creator section", async ({ page }) => {
+    await page.goto("/#content-creator");
+
+    const creatorSection = page.locator("#content-creator");
+    await expect(
+      creatorSection.getByRole("heading", { name: "Beyond Development — Sharing Knowledge" })
+    ).toBeVisible();
+    await expect(creatorSection.getByText("Yoga's Study Zone").first()).toBeVisible();
+
+    const subscribeBtn = creatorSection.getByRole("link", { name: /Subscribe on YouTube/i });
+    await expect(subscribeBtn).toBeVisible();
+    await expect(subscribeBtn).toHaveAttribute("href", "https://www.youtube.com/@yogasstudyzone");
+    await expect(subscribeBtn).toHaveAttribute("target", "_blank");
+
+    const visitBtn = creatorSection.getByRole("link", { name: /Visit Channel/i });
+    await expect(visitBtn).toBeVisible();
+    await expect(visitBtn).toHaveAttribute("href", "https://www.youtube.com/@yogasstudyzone");
+    await expect(visitBtn).toHaveAttribute("target", "_blank");
   });
 
   test("should validate contact form submission", async ({ page }) => {

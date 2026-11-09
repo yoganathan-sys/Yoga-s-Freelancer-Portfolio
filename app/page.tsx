@@ -5,6 +5,7 @@ import { ServicesSection } from "@/components/sections/services";
 import { SkillsSection } from "@/components/sections/skills";
 import { PortfolioSection } from "@/components/sections/portfolio";
 import { ProcessSection } from "@/components/sections/process";
+import { YouTubeCreatorSection } from "@/components/sections/youtube-creator";
 import { ContactSection } from "@/components/sections/contact";
 import { Footer } from "@/components/layout/footer";
 import { getPublishedProjects } from "@/lib/projects";
@@ -38,11 +39,14 @@ export default async function HomePage() {
         {/* Section F: 6-Step Structured Work Process Timeline */}
         <ProcessSection />
 
-        {/* Section G: Contact Section with Validated Form & Honeypot */}
+        {/* Section G: Dedicated Content Creator Section — Beyond Development — Sharing Knowledge */}
+        <YouTubeCreatorSection />
+
+        {/* Section H: Contact Section with Validated Form & Honeypot */}
         <ContactSection />
       </main>
 
-      {/* Section H: Comprehensive Footer */}
+      {/* Section I: Comprehensive Footer */}
       <Footer />
     </div>
   );
