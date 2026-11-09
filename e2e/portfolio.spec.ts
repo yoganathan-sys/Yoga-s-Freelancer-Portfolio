@@ -390,4 +390,82 @@ test.describe("Portfolio Homepage User Journeys", () => {
       page.getByText("Location request timed out. Please try again.")
     ).toBeVisible({ timeout: 5000 });
   });
+
+  test("should verify that all project card and gallery images load completely with naturalWidth > 0 and no 404s", async ({ page }) => {
+    const failedImageRequests: string[] = [];
+
+    page.on("response", (res) => {
+      const url = res.url();
+      if (
+        (url.includes("/projects/") || url.includes("_next/image")) &&
+        res.status() >= 400
+      ) {
+        failedImageRequests.push(`${res.status()}: ${url}`);
+      }
+    });
+
+    // 1. Check Homepage Project Cards
+    await page.goto("/#portfolio");
+    await page.waitForLoadState("networkidle");
+
+    const coverImages = page.locator("#portfolio article img");
+    const count = await coverImages.count();
+    expect(count).toBeGreaterThanOrEqual(2);
+
+    for (let i = 0; i < count; i++) {
+      const img = coverImages.nth(i);
+      await img.scrollIntoViewIfNeeded();
+      await expect(img).toBeVisible();
+      await page.waitForFunction(
+        (el) => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0,
+        await img.elementHandle()
+      );
+      const isLoaded = await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
+      expect(isLoaded).toBe(true);
+    }
+
+    // 2. Check RO Water Gallery Page
+    await page.goto("/projects/ro-water-website");
+    await page.waitForLoadState("networkidle");
+
+    const roGalleryImages = page.locator(".group.cursor-pointer img");
+    const roCount = await roGalleryImages.count();
+    expect(roCount).toBe(7);
+
+    for (let i = 0; i < roCount; i++) {
+      const img = roGalleryImages.nth(i);
+      await img.scrollIntoViewIfNeeded();
+      await expect(img).toBeVisible();
+      await page.waitForFunction(
+        (el) => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0,
+        await img.elementHandle()
+      );
+      const isLoaded = await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
+      expect(isLoaded).toBe(true);
+    }
+
+    // 3. Check Medical Shop Gallery Page & Video
+    await page.goto("/projects/medical-shop-website");
+    await page.waitForLoadState("networkidle");
+
+    const medGalleryImages = page.locator(".group.cursor-pointer img");
+    const medCount = await medGalleryImages.count();
+    expect(medCount).toBe(10);
+
+    for (let i = 0; i < medCount; i++) {
+      const img = medGalleryImages.nth(i);
+      await img.scrollIntoViewIfNeeded();
+      await expect(img).toBeVisible();
+      // Wait for image to finish loading
+      await page.waitForFunction(
+        (el) => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0,
+        await img.elementHandle()
+      );
+      const isLoaded = await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
+      expect(isLoaded).toBe(true);
+    }
+
+    // 4. Assert zero failed image responses
+    expect(failedImageRequests).toEqual([]);
+  });
 });

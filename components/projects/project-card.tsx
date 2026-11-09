@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Images, MapPin } from "lucide-react";
+import { ExternalLink, Images, MapPin, AlertCircle } from "lucide-react";
 import { Project } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,18 +13,32 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <article className="group relative rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
       {/* Project Cover Image */}
       <div className="relative w-full aspect-[16/10] bg-zinc-950 overflow-hidden">
         <Link href={`/projects/${project.slug}`} className="block w-full h-full">
-          <Image
-            src={project.cover_image}
-            alt={project.title}
-            fill
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
-          />
+          {!imgError ? (
+            <Image
+              src={project.cover_image}
+              alt={project.title}
+              fill
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
+              onError={() => {
+                console.error(`[ProjectCard Image Error] Failed to load cover image: ${project.cover_image} for "${project.title}"`);
+                setImgError(true);
+              }}
+            />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-zinc-900 border border-zinc-800 text-zinc-400">
+              <AlertCircle className="w-8 h-8 text-amber-500 mb-2" />
+              <span className="text-xs font-mono font-bold uppercase text-zinc-200">{project.title}</span>
+              <span className="text-[11px] text-zinc-500 mt-1 font-mono">Asset preview unavailable</span>
+            </div>
+          )}
         </Link>
 
         {/* Category Badge Overlay */}

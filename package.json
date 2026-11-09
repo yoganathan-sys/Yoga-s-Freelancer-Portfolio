@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx scripts/validate-portfolio-assets.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "validate:assets": "tsx scripts/validate-portfolio-assets.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"
@@ -50,8 +52,8 @@
     "jsdom": "^25.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "vitest": "^2.1.5"
   }
 }
-

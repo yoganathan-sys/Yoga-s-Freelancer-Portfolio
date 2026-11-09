@@ -62,5 +62,10 @@ Thumbs.db
 # Vercel deployment cache
 .vercel
 
-# Local raw media backup source
-images/
+# Local raw media backup source at project root only
+/images/
+
+# Ensure all public assets (images, videos, documents) are always tracked
+!public/
+!public/**
+

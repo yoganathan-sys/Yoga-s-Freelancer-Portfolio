@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Maximize2, X, ChevronLeft, ChevronRight, Images } from "lucide-react";
+import { Maximize2, X, ChevronLeft, ChevronRight, Images, AlertCircle } from "lucide-react";
 import { ProjectMediaItem } from "@/types";
 
 interface ProjectGalleryProps {
@@ -13,6 +13,12 @@ interface ProjectGalleryProps {
 
 export function ProjectGallery({ gallery, projectTitle }: ProjectGalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (id: string, url: string) => {
+    console.error(`[ProjectGallery Image Error] Failed to load image asset: ${url} (ID: ${id})`);
+    setFailedImages((prev) => ({ ...prev, [id]: true }));
+  };
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -80,54 +86,67 @@ export function ProjectGallery({ gallery, projectTitle }: ProjectGalleryProps) {
 
       {/* Responsive Gallery Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {gallery.map((item, idx) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: idx * 0.05 }}
-            onClick={() => openLightbox(idx)}
-            className="group cursor-pointer rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
-          >
-            {/* Thumbnail */}
-            <div className="relative w-full aspect-[4/3] bg-zinc-950 overflow-hidden">
-              <Image
-                src={item.publicAssetPath}
-                alt={item.caption}
-                fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
+        {gallery.map((item, idx) => {
+          const isFailed = failedImages[item.id];
 
-              {/* Hover Overlay with Zoom Icon */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                <span className="p-3 rounded-full bg-white/90 text-black shadow-lg scale-90 group-hover:scale-100 transition-transform duration-200">
-                  <Maximize2 className="w-5 h-5" />
-                </span>
+          return (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: idx * 0.05 }}
+              onClick={() => openLightbox(idx)}
+              className="group cursor-pointer rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
+            >
+              {/* Thumbnail */}
+              <div className="relative w-full aspect-[4/3] bg-zinc-950 overflow-hidden">
+                {!isFailed ? (
+                  <Image
+                    src={item.publicAssetPath}
+                    alt={item.caption}
+                    fill
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    onError={() => handleImageError(item.id, item.publicAssetPath)}
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-zinc-900 border border-zinc-800 text-zinc-400">
+                    <AlertCircle className="w-6 h-6 text-amber-500 mb-1.5" />
+                    <span className="text-xs font-mono font-medium text-zinc-300 line-clamp-1">{item.originalFileName}</span>
+                    <span className="text-[10px] text-zinc-500 mt-0.5 font-mono">Image preview unavailable</span>
+                  </div>
+                )}
+
+                {/* Hover Overlay with Zoom Icon */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                  <span className="p-3 rounded-full bg-white/90 text-black shadow-lg scale-90 group-hover:scale-100 transition-transform duration-200">
+                    <Maximize2 className="w-5 h-5" />
+                  </span>
+                </div>
+
+                {/* Index Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-black/70 backdrop-blur-sm text-white border border-white/10">
+                    #{idx + 1}
+                  </span>
+                </div>
               </div>
 
-              {/* Index Badge */}
-              <div className="absolute top-3 left-3 z-10">
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-black/70 backdrop-blur-sm text-white border border-white/10">
-                  #{idx + 1}
-                </span>
+              {/* Caption */}
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-snug line-clamp-2">
+                  {item.caption}
+                </p>
+                <div className="mt-3 pt-2 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-400 font-mono">
+                  <span>{item.originalFileName}</span>
+                  <span className="text-blue-600 dark:text-blue-400 font-semibold group-hover:underline">
+                    View Full
+                  </span>
+                </div>
               </div>
-            </div>
-
-            {/* Caption */}
-            <div className="p-4 flex-1 flex flex-col justify-between">
-              <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-snug line-clamp-2">
-                {item.caption}
-              </p>
-              <div className="mt-3 pt-2 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-400 font-mono">
-                <span>{item.originalFileName}</span>
-                <span className="text-blue-600 dark:text-blue-400 font-semibold group-hover:underline">
-                  View Full
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Full-Screen Lightbox Modal */}
@@ -185,14 +204,23 @@ export function ProjectGallery({ gallery, projectTitle }: ProjectGalleryProps) {
 
               {/* Main Active Image */}
               <div className="relative w-full h-full max-w-5xl max-h-[72vh] flex items-center justify-center">
-                <Image
-                  src={activeItem.publicAssetPath}
-                  alt={activeItem.caption}
-                  fill
-                  priority
-                  className="object-contain"
-                  sizes="100vw"
-                />
+                {!failedImages[activeItem.id] ? (
+                  <Image
+                    src={activeItem.publicAssetPath}
+                    alt={activeItem.caption}
+                    fill
+                    priority
+                    className="object-contain"
+                    sizes="100vw"
+                    onError={() => handleImageError(activeItem.id, activeItem.publicAssetPath)}
+                  />
+                ) : (
+                  <div className="w-full h-64 max-w-md flex flex-col items-center justify-center p-6 text-center bg-zinc-900 border border-zinc-800 rounded-2xl text-zinc-400">
+                    <AlertCircle className="w-10 h-10 text-amber-500 mb-3" />
+                    <span className="text-sm font-bold text-zinc-200">{activeItem.originalFileName}</span>
+                    <span className="text-xs text-zinc-500 mt-1 font-mono">Unable to display full-resolution preview</span>
+                  </div>
+                )}
               </div>
 
               {/* Next Button */}
@@ -223,4 +251,3 @@ export function ProjectGallery({ gallery, projectTitle }: ProjectGalleryProps) {
     </section>
   );
 }
-
