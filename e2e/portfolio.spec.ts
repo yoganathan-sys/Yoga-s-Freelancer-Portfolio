@@ -61,6 +61,32 @@ test.describe("Portfolio Homepage User Journeys", () => {
     await expect(page.getByText("Technologies Used")).toBeVisible({ timeout: 10000 });
   });
 
+  test("should display 5 contact cards and WhatsApp integration", async ({ page }) => {
+    await page.goto("/#contact");
+
+    // Contact cards checks scoped to #contact section
+    const contactSection = page.locator("#contact");
+    await expect(contactSection.getByText("yoganathan162008@gmail.com").first()).toBeVisible();
+    await expect(contactSection.getByText("+91 90252 81363").first()).toBeVisible();
+    await expect(contactSection.getByText("Chat with me on WhatsApp")).toBeVisible();
+    await expect(contactSection.getByText("Available for Freelance Projects & Contracts")).toBeVisible();
+    await expect(contactSection.getByText("Remote / Available Worldwide")).toBeVisible();
+
+    // Verify WhatsApp button presence and link destination
+    const waBtn = contactSection.getByRole("link", { name: /Chat directly on WhatsApp/i });
+    await expect(waBtn).toBeVisible();
+    await expect(waBtn).toHaveAttribute("href", /wa\.me\/919025281363/);
+
+    // Verify Google Maps location link
+    const locationCard = contactSection.locator('a[href*="maps.app.goo.gl"]');
+    await expect(locationCard).toBeVisible();
+    await expect(locationCard).toHaveAttribute("href", "https://maps.app.goo.gl/tpTi2YUs5Q9t15F67");
+
+    // Verify Social Profiles & Repositories
+    const githubBtn = contactSection.getByRole("link", { name: /GitHub/i });
+    await expect(githubBtn).toHaveAttribute("href", "https://github.com/yoganathan-sys");
+  });
+
   test("should validate contact form submission", async ({ page }) => {
     await page.goto("/#contact");
 

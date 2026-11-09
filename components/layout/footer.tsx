@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUp, Github, Linkedin, Mail, Heart } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profileConfig } from "@/data/profile";
 import { Button } from "@/components/ui/button";
 
@@ -47,16 +48,24 @@ export function Footer() {
               {profileConfig.shortBio}
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 space-y-1">
               <span className="text-xs font-mono text-zinc-500 block mb-1">
                 Direct Contact:
               </span>
-              <a
-                href={profileConfig.socialLinks.email}
-                className="text-sm font-semibold text-zinc-200 hover:text-blue-400 transition-colors"
-              >
-                {profileConfig.contact.email}
-              </a>
+              <div className="flex flex-col gap-1.5 text-sm">
+                <a
+                  href={profileConfig.socialLinks.email}
+                  className="font-semibold text-zinc-200 hover:text-blue-400 transition-colors"
+                >
+                  {profileConfig.contact.email}
+                </a>
+                <a
+                  href={profileConfig.socialLinks.phone}
+                  className="font-semibold text-zinc-200 hover:text-teal-400 transition-colors"
+                >
+                  {profileConfig.contact.phone}
+                </a>
+              </div>
             </div>
           </div>
 
@@ -84,7 +93,7 @@ export function Footer() {
               <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-400 mb-3">
                 Connect
               </h4>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5">
                 <a
                   href={profileConfig.socialLinks.github}
                   target="_blank"
@@ -99,15 +108,33 @@ export function Footer() {
                   href={profileConfig.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-500 flex items-center justify-center transition-all"
+                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-[#0077b5] hover:bg-[#0077b5] flex items-center justify-center transition-all"
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
 
                 <a
+                  href={profileConfig.contact.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-[#25D366] hover:bg-[#25D366] flex items-center justify-center transition-all"
+                  aria-label="WhatsApp"
+                >
+                  <WhatsAppIcon className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={profileConfig.socialLinks.phone}
+                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-teal-500 hover:bg-teal-600 flex items-center justify-center transition-all"
+                  aria-label="Phone"
+                >
+                  <Phone className="w-4 h-4" />
+                </a>
+
+                <a
                   href={profileConfig.socialLinks.email}
-                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-500 flex items-center justify-center transition-all"
+                  className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-blue-500 hover:bg-blue-600 flex items-center justify-center transition-all"
                   aria-label="Email"
                 >
                   <Mail className="w-4 h-4" />

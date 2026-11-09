@@ -11,9 +11,12 @@ describe("Profile Configuration", () => {
     expect(profileConfig.name).toBe("YOGANATHAN A");
     expect(profileConfig.heroGreeting).toBe("Hi, I'm");
     expect(profileConfig.title).toContain("Full-Stack Developer");
-    expect(profileConfig.contact.email).toBeDefined();
-    expect(profileConfig.socialLinks.github).toBeDefined();
-    expect(profileConfig.socialLinks.linkedin).toBeDefined();
+    expect(profileConfig.contact.email).toBe("yoganathan162008@gmail.com");
+    expect(profileConfig.contact.phone).toBe("+91 90252 81363");
+    expect(profileConfig.contact.whatsappUrl).toContain("wa.me/919025281363");
+    expect(profileConfig.contact.locationMapUrl).toBe("https://maps.app.goo.gl/tpTi2YUs5Q9t15F67");
+    expect(profileConfig.socialLinks.github).toBe("https://github.com/yoganathan-sys");
+    expect(profileConfig.socialLinks.linkedin).toBe("https://www.linkedin.com/in/yoganathana");
   });
 
   it("should have resumeUrl configured", () => {

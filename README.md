@@ -111,10 +111,10 @@ SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"
 RESEND_API_KEY="re_your_api_key_here"
 
 # Destination email where inquiries are sent
-CONTACT_NOTIFICATION_EMAIL="yoganathan.developer@gmail.com"
+CONTACT_NOTIFICATION_EMAIL="yoganathan162008@gmail.com"
 
 # Authorized Administrator Email
-ADMIN_EMAIL="yoganathan.developer@gmail.com"
+ADMIN_EMAIL="yoganathan162008@gmail.com"
 
 # Site Canonical URL
 NEXT_PUBLIC_SITE_URL="https://yoganathan.dev"

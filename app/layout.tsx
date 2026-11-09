@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     "Web Application Development",
     "Mobile Application Development",
   ],
-  authors: [{ name: profileConfig.name, url: "https://github.com/yoganathan-dev" }],
+  authors: [{ name: profileConfig.name, url: profileConfig.socialLinks.github }],
   creator: profileConfig.name,
   openGraph: {
     type: "website",

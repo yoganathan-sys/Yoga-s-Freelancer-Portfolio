@@ -11,19 +11,30 @@ export interface ProfileConfig {
   };
   contact: {
     email: string;
-    phone?: string;
+    phone: string;
+    phoneRaw: string;
+    whatsapp: string;
+    whatsappUrl: string;
     location: string;
+    locationMapUrl: string;
     availability: string;
   };
   socialLinks: {
     github: string;
     linkedin: string;
     email: string;
+    phone: string;
+    whatsapp: string;
     twitter?: string;
   };
   resumeUrl: string;
   avatarUrl: string;
 }
+
+const WHATSAPP_NUMBER = "919025281363";
+const WHATSAPP_PREFILLED_MESSAGE = encodeURIComponent(
+  "Hello Yoganathan! I visited your portfolio and would like to discuss a development project."
+);
 
 export const profileConfig: ProfileConfig = {
   name: "YOGANATHAN A",
@@ -42,14 +53,21 @@ export const profileConfig: ProfileConfig = {
       "My primary objective is building reliable, user-friendly applications that not only provide smooth user experiences but also deliver measurable business value. I continuously evolve my technical stack to stay at the cutting edge of modern software engineering.",
   },
   contact: {
-    email: "yoganathan.developer@gmail.com",
+    email: "yoganathan162008@gmail.com",
+    phone: "+91 90252 81363",
+    phoneRaw: "+919025281363",
+    whatsapp: "+91 90252 81363",
+    whatsappUrl: `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_PREFILLED_MESSAGE}`,
     location: "Remote / Available Worldwide",
+    locationMapUrl: "https://maps.app.goo.gl/tpTi2YUs5Q9t15F67",
     availability: "Available for Freelance Projects & Contracts",
   },
   socialLinks: {
-    github: "https://github.com/yoganathan-dev",
-    linkedin: "https://linkedin.com/in/yoganathan-dev",
-    email: "mailto:yoganathan.developer@gmail.com",
+    github: "https://github.com/yoganathan-sys",
+    linkedin: "https://www.linkedin.com/in/yoganathana",
+    email: "mailto:yoganathan162008@gmail.com",
+    phone: "tel:+919025281363",
+    whatsapp: `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_PREFILLED_MESSAGE}`,
   },
   resumeUrl: "/assets/Yoganathan_A_Resume.pdf",
   avatarUrl: "/images/profile-photo.png",

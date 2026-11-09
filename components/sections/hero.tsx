@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowDown, Sparkles, FolderGit2 } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profileConfig } from "@/data/profile";
 import { Button } from "@/components/ui/button";
 
@@ -121,6 +122,16 @@ export function HeroSection() {
               className="w-10 h-10 rounded-full bg-black/10 hover:bg-red-600 text-zinc-900 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm"
             >
               <Mail className="w-4 h-4" />
+            </a>
+
+            <a
+              href={profileConfig.contact.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+              className="w-10 h-10 rounded-full bg-black/10 hover:bg-[#25D366] text-zinc-900 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-sm"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
             </a>
           </motion.div>
         </div>

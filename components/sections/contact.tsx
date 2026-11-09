@@ -7,14 +7,17 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import {
   Mail,
+  Phone,
+  Clock,
+  MapPin,
   Send,
   Loader2,
   CheckCircle2,
   AlertCircle,
   Github,
   Linkedin,
-  MapPin,
-  Clock,
+  ArrowUpRight,
+  MessageSquare,
   Sparkles,
 } from "lucide-react";
 import { profileConfig } from "@/data/profile";
@@ -22,6 +25,7 @@ import { submitContactAction } from "@/actions/contact";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 
 const contactFormSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters."),
@@ -126,105 +130,174 @@ export function ContactSection() {
             <span>Initiate Collaboration</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading tracking-tight uppercase">
-            Have a Project in Mind?
+            Let&apos;s talk about your next milestone
           </h2>
           <div className="w-16 h-1 bg-black dark:bg-white mt-4 rounded-full" />
           <p className="max-w-2xl text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mt-4">
-            Let&apos;s discuss your idea and turn it into a powerful digital solution.
+            Whether you need a dedicated full-stack developer, a brand-new web or mobile application, or a custom software solution, I am ready to help you turn your ideas into reality.
           </p>
         </div>
 
         {/* 2-Column Contact Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left Column: Direct Contact Info & Direct Channels */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: 5 Professional Contact Cards + WhatsApp Button + Social Repositories */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5 space-y-8"
+            className="lg:col-span-5 space-y-6"
           >
-            <div>
-              <h3 className="text-2xl font-bold font-heading mb-3">
-                Let&apos;s talk about your next milestone
-              </h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Whether you need a dedicated full-stack engineer, a brand-new MVP, or architecture consultation, I am ready to help you launch fast and reliably.
-              </p>
-            </div>
-
-            {/* Direct Details Box */}
-            <div className="space-y-4">
+            {/* The 5 Contact Information Cards */}
+            <div className="space-y-3.5">
+              {/* Card 1 — Email Address */}
               <a
                 href={profileConfig.socialLinks.email}
-                className="group flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 transition-all shadow-sm"
+                className="group flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-blue-500 hover:shadow-lg transition-all duration-200 shadow-sm"
               >
-                <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Mail className="w-5 h-5" />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-0.5">
+                      EMAIL ADDRESS
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {profileConfig.contact.email}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 block mb-0.5">
-                    Email Address
-                  </span>
-                  <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {profileConfig.contact.email}
-                  </span>
-                </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
               </a>
 
-              <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+              {/* Card 2 — Mobile Number */}
+              <a
+                href={profileConfig.socialLinks.phone}
+                className="group flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-teal-500 hover:shadow-lg transition-all duration-200 shadow-sm"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 dark:bg-teal-950/60 dark:text-teal-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-0.5">
+                      MOBILE NUMBER
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                      {profileConfig.contact.phone}
+                    </span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-teal-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              </a>
+
+              {/* Card 3 — WhatsApp */}
+              <a
+                href={profileConfig.contact.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-[#25D366] hover:shadow-lg transition-all duration-200 shadow-sm"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-[#25D366] dark:bg-emerald-950/60 dark:text-[#25D366] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                    <WhatsAppIcon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-0.5">
+                      WHATSAPP
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white group-hover:text-[#25D366] transition-colors">
+                      Chat with me on WhatsApp
+                    </span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-[#25D366] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              </a>
+
+              {/* Card 4 — Current Availability */}
+              <div className="flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400 flex items-center justify-center shrink-0 shadow-inner">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 block mb-0.5">
-                    Current Availability
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-0.5">
+                    CURRENT AVAILABILITY
                   </span>
-                  <span className="text-sm font-bold text-zinc-900 dark:text-white">
+                  <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white">
                     {profileConfig.contact.availability}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm">
-                <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
+              {/* Card 5 — Location (Clickable Google Maps Link) */}
+              <a
+                href={profileConfig.contact.locationMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-purple-500 hover:shadow-lg transition-all duration-200 shadow-sm"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-950/60 dark:text-purple-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-0.5">
+                      LOCATION
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      {profileConfig.contact.location}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 block mb-0.5">
-                    Location & Timezone
-                  </span>
-                  <span className="text-sm font-bold text-zinc-900 dark:text-white">
-                    {profileConfig.contact.location}
-                  </span>
-                </div>
-              </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-purple-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              </a>
             </div>
 
-            {/* Social Network Links */}
-            <div>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 block mb-3">
-                Social Profiles & Repositories
+            {/* Prominent WhatsApp Contact Action Button */}
+            <div className="pt-2">
+              <Button
+                asChild
+                className="w-full justify-center bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg hover:shadow-[#25D366]/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 gap-2.5 text-sm"
+              >
+                <a
+                  href={profileConfig.contact.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat directly on WhatsApp"
+                >
+                  <WhatsAppIcon className="w-5 h-5" />
+                  <span>Chat on WhatsApp (+91 90252 81363)</span>
+                </a>
+              </Button>
+            </div>
+
+            {/* Social Profiles & Repositories */}
+            <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-3">
+                SOCIAL PROFILES & REPOSITORIES
               </span>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <a
                   href={profileConfig.socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center gap-2 text-xs font-semibold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-sm"
+                  className="px-5 py-3 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center gap-2.5 text-xs font-bold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-black dark:hover:border-white transition-all shadow-sm group"
                 >
-                  <Github className="w-4 h-4" />
+                  <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span>GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </a>
 
                 <a
                   href={profileConfig.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center gap-2 text-xs font-semibold hover:bg-[#0077b5] hover:text-white transition-all shadow-sm"
+                  className="px-5 py-3 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center gap-2.5 text-xs font-bold hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] transition-all shadow-sm group"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span>LinkedIn</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </a>
               </div>
             </div>
@@ -239,6 +312,16 @@ export function ContactSection() {
             className="lg:col-span-7"
           >
             <div className="rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 sm:p-10 shadow-xl">
+              <div className="mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
+                <h3 className="text-xl font-bold font-heading text-zinc-900 dark:text-white flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-blue-500" />
+                  <span>Send a Message</span>
+                </h3>
+                <p className="text-xs text-zinc-500 mt-1">
+                  Fill out the form below and I will get back to you within 24 hours.
+                </p>
+              </div>
+
               {submitStatus?.success ? (
                 <div className="py-12 flex flex-col items-center text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center animate-bounce">
@@ -396,4 +479,3 @@ export function ContactSection() {
     </section>
   );
 }
-
