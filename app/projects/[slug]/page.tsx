@@ -2,11 +2,23 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github, CheckCircle, Calendar, Tag, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Github,
+  CheckCircle,
+  Calendar,
+  Tag,
+  ShieldCheck,
+  MapPin,
+  Building2,
+} from "lucide-react";
 import { getProjectBySlug, getPublishedProjects } from "@/lib/projects";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ProjectGallery } from "@/components/projects/project-gallery";
+import { ProjectVideoPlayer } from "@/components/projects/project-video-player";
 
 interface ProjectDetailsPageProps {
   params: {
@@ -58,9 +70,9 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
 
   return (
     <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 py-12 sm:py-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Back Link */}
-        <div className="mb-8">
+        <div>
           <Button
             asChild
             variant="ghost"
@@ -75,16 +87,14 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
         </div>
 
         {/* Project Header */}
-        <div className="space-y-4 mb-10">
+        <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-600 text-white shadow-sm">
               {project.category}
             </span>
-            {project.featured && (
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">
-                Featured Case Study
-              </span>
-            )}
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black shadow-sm">
+              VERIFIED CLIENT PROJECT
+            </span>
             <span className="text-xs text-zinc-500 font-mono flex items-center gap-1.5 ml-auto">
               <Calendar className="w-3.5 h-3.5" />
               <span>{formatDate(project.created_at)}</span>
@@ -95,7 +105,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
             {project.title}
           </h1>
 
-          <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">
+          <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-4xl">
             {project.short_description}
           </p>
 
@@ -109,7 +119,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
                 className="rounded-full font-bold shadow-lg gap-2"
               >
                 <a href={project.live_url} target="_blank" rel="noopener noreferrer">
-                  <span>Visit Live Demo</span>
+                  <span>Visit Live Website</span>
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </Button>
@@ -124,7 +134,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
               >
                 <a href={project.github_url} target="_blank" rel="noopener noreferrer">
                   <Github className="w-4 h-4" />
-                  <span>View Source Code</span>
+                  <span>GitHub Profile</span>
                 </a>
               </Button>
             )}
@@ -143,7 +153,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
         </div>
 
         {/* Hero Cover Image Preview */}
-        <div className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-2xl mb-12 bg-zinc-900">
+        <div className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-2xl bg-zinc-900">
           <Image
             src={project.cover_image}
             alt={project.title}
@@ -166,24 +176,24 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
             <div className="p-6 rounded-2xl bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3 mt-8">
               <div className="flex items-center gap-2 text-sm font-bold font-heading">
                 <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                <span>Production Quality Checklist</span>
+                <span>Client Delivery Checklist</span>
               </div>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-zinc-600 dark:text-zinc-400">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Strict TypeScript & Clean Architecture</span>
+                  <span>Custom UI/UX & Responsive Layouts</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Mobile & Tablet Responsive Layouts</span>
+                  <span>One-Click WhatsApp & Call Integration</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Optimized Database Queries & Indexing</span>
+                  <span>Production Deployed & High Uptime</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Sub-second Core Web Vitals</span>
+                  <span>Real Client Handover Completed</span>
                 </li>
               </ul>
             </div>
@@ -192,9 +202,29 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
           {/* Sidebar Tech Info */}
           <div className="lg:col-span-4 space-y-6">
             <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-6">
-              <div>
+              {project.client_name && (
+                <div>
+                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
+                    <Building2 className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Client</span>
+                  </h3>
+                  <p className="text-sm font-semibold">{project.client_name}</p>
+                </div>
+              )}
+
+              {project.client_location && (
+                <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
+                    <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Location</span>
+                  </h3>
+                  <p className="text-sm font-semibold">{project.client_location}</p>
+                </div>
+              )}
+
+              <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
                 <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 mb-3 flex items-center gap-2">
-                  <Tag className="w-3.5 h-3.5" />
+                  <Tag className="w-3.5 h-3.5 text-blue-600" />
                   <span>Technologies Used</span>
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -214,24 +244,24 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
               </div>
 
               <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500 mb-2">
-                  Published Date
-                </h3>
-                <p className="text-sm font-semibold">{formatDate(project.created_at)}</p>
-              </div>
-
-              <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
                 <Button asChild variant="heroDark" className="w-full justify-center rounded-xl font-bold">
                   <Link href="/#contact">
-                    Work With Me
+                    Discuss Your Project
                   </Link>
                 </Button>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Video Demonstration Section (Only when video is available) */}
+        {project.video && <ProjectVideoPlayer video={project.video} />}
+
+        {/* Full Image Gallery with Lightbox (Uses all authentic assets) */}
+        {project.gallery && project.gallery.length > 0 && (
+          <ProjectGallery gallery={project.gallery} projectTitle={project.title} />
+        )}
       </div>
     </main>
   );
 }
-

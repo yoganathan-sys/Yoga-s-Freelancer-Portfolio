@@ -1,0 +1,180 @@
+{
+  "client-1": {
+    "projectId": "p1-rtech-pure-water",
+    "projectName": "R-Tech Pure Water — Commercial & Domestic RO Web Platform",
+    "client": "R-Tech Pure Water",
+    "location": "Tirupattur, Tamil Nadu",
+    "media": [
+      {
+        "id": "c1-m1",
+        "originalFileName": "client-6.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client-6.png",
+        "caption": "R-Tech Pure Water official web application running live on desktop browser (r-techpurewater.com)",
+        "displayOrder": 1
+      },
+      {
+        "id": "c1-m2",
+        "originalFileName": "client.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client.png",
+        "caption": "Official First Client Project Celebration Poster — A new milestone in web development journey",
+        "displayOrder": 2
+      },
+      {
+        "id": "c1-m3",
+        "originalFileName": "client-2.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client-2.png",
+        "caption": "On-site delivery & client handover at R Tech Pure Water store front (Tirupattur)",
+        "displayOrder": 3
+      },
+      {
+        "id": "c1-m4",
+        "originalFileName": "client-3.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client-3.png",
+        "caption": "Interactive web application hero section displaying Clean Water for Healthy Living & Water Purity statistics",
+        "displayOrder": 4
+      },
+      {
+        "id": "c1-m5",
+        "originalFileName": "client-1.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client-1.png",
+        "caption": "Store owner reviewing the commercial RO water system catalog on the laptop",
+        "displayOrder": 5
+      },
+      {
+        "id": "c1-m6",
+        "originalFileName": "client-4.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client-4.png",
+        "caption": "Demonstration of service booking workflow and customer enquiry forms",
+        "displayOrder": 6
+      },
+      {
+        "id": "c1-m7",
+        "originalFileName": "client-5.png",
+        "mediaType": "image",
+        "projectFolder": "client-1",
+        "publicAssetPath": "/projects/client-1/images/client-5.png",
+        "caption": "Client verifying the responsive website design and instant contact integrations",
+        "displayOrder": 7
+      }
+    ],
+    "video": null
+  },
+  "client-2": {
+    "projectId": "p2-sri-siva-medicals",
+    "projectName": "Sri Siva Medicals — Trusted Pharmacy & Healthcare Web Platform",
+    "client": "Sri Siva Medicals (Mr. Gangeyan M, Pharmacist)",
+    "location": "Vadugamuthampatti / Kurusilapattu, Tamil Nadu",
+    "media": [
+      {
+        "id": "c2-m1",
+        "originalFileName": "med-2.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-2.png",
+        "caption": "Sri Siva Medicals live web platform on pharmacy counter (sri-siva-medicals.vercel.app)",
+        "displayOrder": 1
+      },
+      {
+        "id": "c2-m2",
+        "originalFileName": "med-3.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-3.png",
+        "caption": "About page with owner Mr. Gangeyan M profile and Project Completed checklist",
+        "displayOrder": 2
+      },
+      {
+        "id": "c2-m3",
+        "originalFileName": "med-1.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-1.png",
+        "caption": "Pharmacist client standing at Sri Siva Medicals dispensing counter",
+        "displayOrder": 3
+      },
+      {
+        "id": "c2-m4",
+        "originalFileName": "med-10.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-10.png",
+        "caption": "Sri Siva Medicals & Dental Clinic exterior signboard at Kurusilapattu",
+        "displayOrder": 4
+      },
+      {
+        "id": "c2-m5",
+        "originalFileName": "med-7.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-7.png",
+        "caption": "Project handover ceremony with pharmacist owner Mr. Gangeyan M",
+        "displayOrder": 5
+      },
+      {
+        "id": "c2-m6",
+        "originalFileName": "med-5.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-5.png",
+        "caption": "Client demonstrating digital prescription enquiry workflow on laptop",
+        "displayOrder": 6
+      },
+      {
+        "id": "c2-m7",
+        "originalFileName": "med-6.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-6.png",
+        "caption": "Client delivery and team review inside the pharmacy premises",
+        "displayOrder": 7
+      },
+      {
+        "id": "c2-m8",
+        "originalFileName": "med-4.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-4.png",
+        "caption": "Full pharmacy shopfront perspective with live website running on the front counter",
+        "displayOrder": 8
+      },
+      {
+        "id": "c2-m9",
+        "originalFileName": "med-8.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-8.png",
+        "caption": "Medicine inventory shelves categorized for digital stock management",
+        "displayOrder": 9
+      },
+      {
+        "id": "c2-m10",
+        "originalFileName": "med-9.png",
+        "mediaType": "image",
+        "projectFolder": "client-2",
+        "publicAssetPath": "/projects/client-2/images/med-9.png",
+        "caption": "Dispensary section with allopathic medicines cataloged in the web app",
+        "displayOrder": 10
+      }
+    ],
+    "video": {
+      "originalFileName": "siva medicals.mp4",
+      "mediaType": "video",
+      "projectFolder": "client-2",
+      "publicAssetPath": "/projects/client-2/videos/siva-medicals.mp4",
+      "caption": "On-site video demonstration & live walk-through of Sri Siva Medicals web platform",
+      "displayOrder": 11
+    }
+  }
+}

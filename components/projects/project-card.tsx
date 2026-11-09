@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { ExternalLink, Github, ArrowRight, MapPin } from "lucide-react";
 import { Project } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,11 +21,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           alt={project.title}
           fill
           className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
         />
 
         {/* Category Badge Overlay */}
-        <div className="absolute top-4 left-4 z-10">
+        <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
           <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-black/80 backdrop-blur-md text-white border border-white/10 shadow-md">
             {project.category}
           </span>
@@ -33,8 +33,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {project.featured && (
           <div className="absolute top-4 right-4 z-10">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-blue-600 text-white shadow-md">
-              FEATURED
+            <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-blue-600 text-white shadow-md uppercase tracking-wider">
+              REAL CLIENT PROJECT
             </span>
           </div>
         )}
@@ -43,6 +43,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
       {/* Project Body */}
       <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
         <div>
+          {/* Client Location Badge if available */}
+          {project.client_location && (
+            <div className="flex items-center gap-1.5 text-xs text-zinc-500 font-mono mb-2">
+              <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+              <span>{project.client_location}</span>
+            </div>
+          )}
+
           {/* Title */}
           <h3 className="text-xl font-bold font-heading text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
             <Link href={`/projects/${project.slug}`}>
@@ -51,20 +59,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </h3>
 
           {/* Short Description */}
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2.5 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2.5 line-clamp-3 leading-relaxed">
             {project.short_description}
           </p>
 
           {/* Technology Badges */}
           <div className="flex flex-wrap gap-1.5 mt-4">
-            {project.technologies.slice(0, 4).map((tech) => (
+            {project.technologies.slice(0, 5).map((tech) => (
               <Badge key={tech} variant="tech">
                 {tech}
               </Badge>
             ))}
-            {project.technologies.length > 4 && (
+            {project.technologies.length > 5 && (
               <span className="text-[11px] text-zinc-500 self-center font-mono pl-1">
-                +{project.technologies.length - 4} more
+                +{project.technologies.length - 5} more
               </span>
             )}
           </div>
@@ -92,14 +100,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 asChild
                 variant="outline"
                 size="icon"
-                className="w-8 h-8 rounded-full border-zinc-300 dark:border-zinc-700"
-                title="Live Demo"
+                className="w-8 h-8 rounded-full border-zinc-300 dark:border-zinc-700 hover:bg-blue-50 dark:hover:bg-zinc-800 hover:text-blue-600"
+                title="Live Website"
               >
                 <a
                   href={project.live_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Live demo for ${project.title}`}
+                  aria-label={`Live site for ${project.title}`}
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
@@ -112,13 +120,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 variant="outline"
                 size="icon"
                 className="w-8 h-8 rounded-full border-zinc-300 dark:border-zinc-700"
-                title="GitHub Repository"
+                title="GitHub Profile"
               >
                 <a
                   href={project.github_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`GitHub repository for ${project.title}`}
+                  aria-label={`GitHub for ${project.title}`}
                 >
                   <Github className="w-3.5 h-3.5" />
                 </a>
@@ -130,4 +138,3 @@ export function ProjectCard({ project }: ProjectCardProps) {
     </article>
   );
 }
-

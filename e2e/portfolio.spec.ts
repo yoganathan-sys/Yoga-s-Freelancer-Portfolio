@@ -44,13 +44,22 @@ test.describe("Portfolio Homepage User Journeys", () => {
     await expect(page.getByRole("heading", { name: "Expo" })).toBeVisible();
   });
 
-  test("should display published projects and navigate to project details", async ({ page }) => {
+  test("should display exactly two verified client projects and filter by Web Applications", async ({ page }) => {
     await page.goto("/#portfolio");
 
-    // Click 'Full-Stack Projects'
-    await page.getByRole("button", { name: "Full-Stack Projects" }).click();
+    // Click 'Web Applications'
+    await page.getByRole("button", { name: "Web Applications" }).click();
 
-    // View project button
+    // Verify both client projects are displayed
+    await expect(page.getByText("R-Tech Pure Water").first()).toBeVisible();
+    await expect(page.getByText("Sri Siva Medicals").first()).toBeVisible();
+
+    // Ensure fake projects are not displayed
+    await expect(page.getByText("NexStore")).not.toBeVisible();
+    await expect(page.getByText("HealthPulse")).not.toBeVisible();
+    await expect(page.getByText("DevFlow")).not.toBeVisible();
+
+    // Navigate to first project details
     const firstProjectLink = page.getByRole("link", { name: "View Project" }).first();
     await expect(firstProjectLink).toBeVisible();
     await firstProjectLink.click();
@@ -59,6 +68,27 @@ test.describe("Portfolio Homepage User Journeys", () => {
     // Verify detail page
     await expect(page.getByRole("link", { name: "Back to Portfolio" })).toBeVisible({ timeout: 10000 });
     await expect(page.getByText("Technologies Used")).toBeVisible({ timeout: 10000 });
+  });
+
+  test("should render video player and open image gallery lightbox on project page", async ({ page }) => {
+    await page.goto("/projects/sri-siva-medicals");
+
+    // Verify video demonstration section
+    await expect(page.getByRole("heading", { name: /Sri Siva Medicals/i }).first()).toBeVisible();
+    await expect(page.locator("video")).toBeVisible();
+
+    // Verify gallery and click an image to open lightbox
+    const firstGalleryImage = page.locator(".group.cursor-pointer").first();
+    await expect(firstGalleryImage).toBeVisible();
+    await firstGalleryImage.click();
+
+    // Verify lightbox is open
+    await expect(page.getByRole("button", { name: "Close Lightbox" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Next Image" })).toBeVisible();
+
+    // Close lightbox
+    await page.getByRole("button", { name: "Close Lightbox" }).click();
+    await expect(page.getByRole("button", { name: "Close Lightbox" })).not.toBeVisible();
   });
 
   test("should display 5 contact cards and WhatsApp integration", async ({ page }) => {

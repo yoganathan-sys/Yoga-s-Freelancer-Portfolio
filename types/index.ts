@@ -1,9 +1,28 @@
 export type ProjectCategory =
+  | "All Projects"
   | "All"
   | "Web Applications"
   | "Mobile Applications"
   | "Full-Stack Projects"
   | "UI/UX Designs";
+
+export interface ProjectMediaItem {
+  id: string;
+  originalFileName: string;
+  mediaType: "image" | "video";
+  projectFolder: string;
+  publicAssetPath: string;
+  caption: string;
+  displayOrder: number;
+}
+
+export interface ProjectVideo {
+  src: string;
+  type: string;
+  title: string;
+  poster?: string;
+  duration?: string;
+}
 
 export interface Project {
   id: string;
@@ -20,6 +39,11 @@ export interface Project {
   published: boolean;
   created_at: string;
   updated_at: string;
+  client_name?: string;
+  client_location?: string;
+  gallery?: ProjectMediaItem[];
+  video?: ProjectVideo | null;
+  manifest?: ProjectMediaItem[];
 }
 
 export type ProjectInput = Omit<Project, "id" | "created_at" | "updated_at">;
@@ -48,4 +72,3 @@ export interface DashboardMetrics {
   totalInquiries: number;
   unreadInquiries: number;
 }
-

@@ -66,8 +66,8 @@ describe("Skills & Categorization", () => {
 });
 
 describe("Projects Data", () => {
-  it("should have valid initial projects with slugs", () => {
-    expect(initialProjects.length).toBeGreaterThanOrEqual(6);
+  it("should contain exactly two verified client projects with complete media and slugs", () => {
+    expect(initialProjects).toHaveLength(2);
     initialProjects.forEach((proj) => {
       expect(proj.title).toBeDefined();
       expect(proj.slug).toBeDefined();
@@ -75,7 +75,18 @@ describe("Projects Data", () => {
       expect(proj.full_description).toBeDefined();
       expect(proj.technologies.length).toBeGreaterThan(0);
       expect(proj.cover_image).toBeDefined();
+      expect(proj.gallery?.length).toBeGreaterThanOrEqual(7);
     });
+
+    // Verify client 1 has R-Tech Pure Water details
+    expect(initialProjects[0].slug).toBe("r-tech-pure-water");
+    expect(initialProjects[0].video).toBeNull();
+    expect(initialProjects[0].cover_image).toBe("/projects/client-1/images/client-6.png");
+
+    // Verify client 2 has Sri Siva Medicals details and video
+    expect(initialProjects[1].slug).toBe("sri-siva-medicals");
+    expect(initialProjects[1].video).toBeDefined();
+    expect(initialProjects[1].video?.src).toBe("/projects/client-2/videos/siva-medicals.mp4");
   });
 });
 
@@ -104,4 +115,3 @@ describe("Utility Functions", () => {
     expect(formatted).toContain("May");
   });
 });
-
